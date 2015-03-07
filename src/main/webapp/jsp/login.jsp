@@ -69,7 +69,7 @@
 .site-logo {
     width: 50%;
     height: 60px;
-    background: url(../static/image/logo-zh.gif) 50% 0px no-repeat;
+    background: url(<%=baseURL%>/static/image/logo-zh.gif) 50% 0px no-repeat;
 }
 
 .slider {
@@ -77,7 +77,7 @@
     height: 420px;
     position: relative;
     margin-top: 0px;
-    background: url(../static/image/login.png) 50% 0px no-repeat
+    background: url(<%=baseURL%>/static/image/login.png) 50% 0px no-repeat
         rgb(233, 244, 251);
     border-style: solid;
     border-width: 1px;
