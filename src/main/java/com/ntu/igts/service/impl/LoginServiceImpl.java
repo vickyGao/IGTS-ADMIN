@@ -3,6 +3,7 @@ package com.ntu.igts.service.impl;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.ntu.igts.model.SessionContext;
 import com.ntu.igts.model.container.LoginForm;
@@ -10,7 +11,7 @@ import com.ntu.igts.service.LoginService;
 import com.ntu.igts.utils.InvocationUtil;
 import com.ntu.igts.utils.JsonUtil;
 
-@Component
+@Service
 public class LoginServiceImpl implements LoginService {
 
     @Override

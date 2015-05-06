@@ -17,7 +17,7 @@ import com.ntu.igts.validator.LoginValidator;
 
 @Component
 @Path("login")
-public class Login extends BaseResource {
+public class Login {
 
     @Resource
     private LoginService loginService;
@@ -33,4 +33,5 @@ public class Login extends BaseResource {
         SessionContext sessionContext = loginService.login(loginForm);
         return JsonUtil.getJsonStringFromPojo(sessionContext);
     }
+
 }

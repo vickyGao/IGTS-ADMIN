@@ -80,6 +80,10 @@
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
+        <dependency>
+        <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+        </dependency>
         <!-- jersey-spring -->
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
