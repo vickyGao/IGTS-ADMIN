@@ -5,6 +5,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.ntu.igts.constants.Constants;
 import com.ntu.igts.model.SessionContext;
 import com.ntu.igts.model.container.LoginForm;
 import com.ntu.igts.service.LoginService;
@@ -16,10 +17,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public SessionContext login(LoginForm loginForm) {
-        String postBody = JsonUtil.getJsonStringWithRootFromPojo(loginForm);
-        String response = InvocationUtil.sendPostRequest("login/user", null, MediaType.APPLICATION_JSON, postBody,
-                        MediaType.APPLICATION_JSON);
-        return JsonUtil.getPojoFromJsonStringWithRoot(response, SessionContext.class);
+        String postBody = JsonUtil.getJsonStringFromPojo(loginForm);
+        String response = InvocationUtil.sendPostRequest(Constants.URL_LOGIN, null, MediaType.APPLICATION_JSON,
+                        postBody, MediaType.APPLICATION_JSON);
+        return JsonUtil.getPojoFromJsonString(response, SessionContext.class);
     }
 
 }

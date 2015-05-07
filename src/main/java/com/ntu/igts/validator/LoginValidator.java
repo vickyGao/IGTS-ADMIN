@@ -13,15 +13,11 @@ import net.sf.json.JSONObject;
 public class LoginValidator {
 
     public void validateLogin(String postBody) {
-        JSONObject jsonPostBody = JSONObject.fromObject(postBody);
+        JSONObject jsonPostBody = JSONObject.fromObject(postBody).optJSONObject(Constants.LOGIN);
         if (!ValidationUtil.hasKey(jsonPostBody, Constants.USERNAME)
                         || ValidationUtil.isFieldEmpty(jsonPostBody, Constants.USERNAME)
                         || !ValidationUtil.hasKey(jsonPostBody, Constants.PASSWORD)
                         || ValidationUtil.isFieldEmpty(jsonPostBody, Constants.PASSWORD)) {
-            throw new ServiceWarningException("Username or password is required.",
-                            MessageKeys.USERNAME_OR_PASSWORD_CANNOT_BE_EMPTY);
-        }
-        if ("".equals(jsonPostBody.optString(Constants.USERNAME))) {
             throw new ServiceWarningException("Username or password is required.",
                             MessageKeys.USERNAME_OR_PASSWORD_CANNOT_BE_EMPTY);
         }

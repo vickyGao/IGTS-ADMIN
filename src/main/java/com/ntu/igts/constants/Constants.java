@@ -30,7 +30,42 @@ public class Constants {
     public static final String DEFAULT_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     /** json keys */
+    public static final String LOGIN = "login";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+
+    /** URL Login */
+    public static final String URL_LOGIN = "login/admin";
+
+    /** URL Admin */
+    public static final String URL_ADMIN_ENTITY = "admin/entity";
+    public static final String URL_ADMIN_SEARCH_TERM = "admin/search_term";
+
+    /** URL Commodity */
+    public static final String URL_COMMODITY_SEARCH_TERM = "commodity/search_term";
+
+    /** URL Custom Module */
+    public static final String URL_CUSTOM_MODULE_ENTITY = "custommodule/entity";
+    public static final String URL_CUSTOM_MODULE_DETAIL = "custommodule/detail";
+
+    /** URL Hot Commodities */
+    public static final String URL_HOT_ENTITY = "hot/entity";
+
+    /** URL Message */
+    public static final String URL_MESSAGE_ENTITY = "message/entity";
+
+    /** URL Sensitive Word */
+    public static final String URL_SENSITIVE_WORD_ENTITY = "sensitiveword/entity";
+    public static final String URL_SENSITIVE_WORD_SEARCH_TERM = "sensitiveword/search_term";
+
+    /** URL Slice */
+    public static final String URL_SLICE_ENTITY = "slice/entity";
+
+    /** URL Tag */
+    public static final String URL_TAG_ENTITY = "tag/entity";
+
+    /** URL User */
+    public static final String URL_USER_ENTITY = "user/entity";
+    public static final String URL_USER_SEARCH_TERM = "user/search_term";
 
 }
