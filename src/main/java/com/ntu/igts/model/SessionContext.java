@@ -18,14 +18,10 @@ public class SessionContext implements Serializable {
     private Date loginTime;
     @JsonIgnore
     private Date expireTime;
-    @JsonIgnore
+    @JsonProperty("userid")
     private String userId;
-    @JsonIgnore
-    private Date createdTime;
-    @JsonIgnore
-    private Date lastUpdatedTime;
-    @JsonIgnore
-    private User user;
+    @JsonProperty("username")
+    private String userName;
 
     public String getToken() {
         return token;
@@ -59,28 +55,12 @@ public class SessionContext implements Serializable {
         this.userId = userId;
     }
 
-    public Date getCreatedTime() {
-        return createdTime;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public Date getLastUpdatedTime() {
-        return lastUpdatedTime;
-    }
-
-    public void setLastUpdatedTime(Date lastUpdatedTime) {
-        this.lastUpdatedTime = lastUpdatedTime;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 }

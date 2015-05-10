@@ -1,6 +1,9 @@
 package com.ntu.igts.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -35,6 +38,8 @@ public class User extends BaseModel implements Serializable {
     private int buyerExp;
     @JsonProperty("idnumber")
     private String idNumber; // id card number
+    @JsonProperty("roles")
+    private List<Role> roles = new ArrayList<Role>();
 
     public String getUserName() {
         return userName;
@@ -138,6 +143,14 @@ public class User extends BaseModel implements Serializable {
 
     public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
 }

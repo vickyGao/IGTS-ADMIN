@@ -46,7 +46,7 @@ public class ExceptionMapperSupport implements ExceptionMapper<Exception> {
             String code = serviceWarningException.getCode();
             String message = messageBuilder.buildMessage(code, serviceWarningException.getParam(),
                             serviceWarningException.getMessage(), locale);
-            Status status = Status.BAD_REQUEST;
+            Status status = Status.PRECONDITION_FAILED;
             LOGGER.error(message, serviceWarningException);
             return Response.ok(message, MediaType.TEXT_PLAIN).status(status).build();
         } else if (exception instanceof UnAuthorizedException) {

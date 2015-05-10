@@ -47,7 +47,7 @@ public class ImageResource {
     public String get() {
         return "test";
     }
-    
+
     // save uploaded file to a defined location on the server
     private String saveFile(BodyPart bodyPart) {
         BodyPartEntity bodyPartEntity = (BodyPartEntity) bodyPart.getEntity();
