@@ -34,12 +34,15 @@ public class Constants {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
 
-    /** URL Login */
-    public static final String URL_LOGIN = "login/admin";
+    /** URL Authorization */
+    public static final String URL_LOGIN = "authorization/admin";
+    public static final String URL_LOGOUT = "authorization/logout";
 
     /** URL Admin */
     public static final String URL_ADMIN_ENTITY = "admin/entity";
+    public static final String URL_ADMIN_DETAIL = "admin/detail";
     public static final String URL_ADMIN_SEARCH_TERM = "admin/search_term";
+    public static final String URL_ADMIN_GET_BY_TOKEN = "admin/detail/token";
 
     /** URL Commodity */
     public static final String URL_COMMODITY_SEARCH_TERM = "commodity/search_term";
@@ -66,6 +69,8 @@ public class Constants {
 
     /** URL User */
     public static final String URL_USER_ENTITY = "user/entity";
+    public static final String URL_USER_DETAIL = "user/detail";
     public static final String URL_USER_SEARCH_TERM = "user/search_term";
+    public static final String URL_USER_GET_BY_TOKEN = "user/detail/token";
 
 }
