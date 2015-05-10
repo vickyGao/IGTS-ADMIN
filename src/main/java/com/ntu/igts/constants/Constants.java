@@ -66,6 +66,7 @@ public class Constants {
 
     /** URL Tag */
     public static final String URL_TAG_ENTITY = "tag/entity";
+    public static final String URL_TAG_DETAIL = "tag/detail";
 
     /** URL User */
     public static final String URL_USER_ENTITY = "user/entity";

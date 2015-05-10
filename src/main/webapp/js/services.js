@@ -1,7 +1,36 @@
 var rootApp = angular.module('RootApp', ['ngCookies', 'ngRoute']);
 
+/* Add authHttp to send request, will add token into header automatically */
+rootApp.factory('authHttp', function($http, $cookieStore) {
+    var authHttp = {};
+
+    var extendHeaders = function(config) {
+        config.headers = config.headers || {};
+        config.headers['x-auth-token'] = $cookieStore.get('x-auth-token');
+    };
+
+    angular.forEach(['get', 'delete', 'head'], function(name) {
+        authHttp[name] = function(url, config) {
+            config = config || {};
+            extendHeaders(config);
+            return $http[name](url, config);
+        } ;
+    });
+    angular.forEach(['post', 'put'], function (name) {
+        authHttp[name] = function(url, data, config) {
+            config = config || {};
+            extendHeaders(config);
+            return $http[name](url, data, config);
+        };
+    });
+    return authHttp;
+});
+
 function indexRouteConfig($routeProvider) {
     $routeProvider.
+        when('/', {
+            redirectTo: '/index'
+        }).
         when('/index', {
             templateUrl: 'template/dashboard.html'
         }).
@@ -41,22 +70,6 @@ function indexRouteConfig($routeProvider) {
 }
 
 rootApp.config(indexRouteConfig);
-
-rootApp.controller('RootController', function ($scope, $location) {
-    $scope.$on('event:loginRequired', function () {
-        window.location.href = 'login.html';
-    });
-});
-
-rootApp.controller('headerController', function ($scope, $http, $cookieStore) {
-    var token = $cookieStore.get('x-auth-token');
-    console.log(token);
-    $http.get('api/admin/detail/token', {
-        headers: {'x-auth-token': token}
-    }).success(function (data) {
-        $scope.admin = data.admin;
-    });
-});
 
 /* Register the interceptor */
 rootApp.config(function ($httpProvider) {

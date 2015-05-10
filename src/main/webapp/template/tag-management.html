@@ -1,1 +1,16 @@
-<h1>标签管理页面</h1>
+<div class="panel-group" id="accordion" ng-controller="TagListController">
+    <div class="panel panel-default" ng-repeat="tag in tags">
+        <div class="panel-heading" style="cursor: pointer">
+            <h4 class="panel-title">
+                <span data-toggle="collapse" data-parent="#accordion"
+                   data-target="#{{tag.standardname}}">
+                    {{tag.name}}
+                </span>
+            </h4>
+        </div>
+        <div id="{{tag.standardname}}" class="panel-collapse collapse in">
+            <div class="panel-body" ng-repeat="tag in tag.tags">{{tag.name}}
+            </div>
+        </div>
+    </div>
+</div>

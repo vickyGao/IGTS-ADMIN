@@ -2,9 +2,11 @@ package com.ntu.igts.resource;
 
 import javax.annotation.Resource;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -38,9 +40,8 @@ public class AuthorizationResource {
         return JsonUtil.getJsonStringFromPojo(sessionContext);
     }
 
-    @GET
+    @DELETE
     @Path("logout")
-    @Produces(MediaType.APPLICATION_JSON)
     public void logout(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
         authorizationService.logout(token);
     }

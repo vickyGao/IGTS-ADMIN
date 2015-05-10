@@ -29,7 +29,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     public void logout(String token) {
         Map<String, String> header = new HashMap<String, String>();
         header.put(Constants.HEADER_X_AUTH_HEADER, token);
-        InvocationUtil.sendGetRequest(Constants.URL_LOGOUT, header, MediaType.APPLICATION_JSON);
+        InvocationUtil.sendDeleteRequest(Constants.URL_LOGOUT, header, MediaType.TEXT_PLAIN);
     }
 
 }

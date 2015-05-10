@@ -18,9 +18,11 @@ import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.media.multipart.BodyPart;
 import org.glassfish.jersey.media.multipart.BodyPartEntity;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
+import org.springframework.stereotype.Component;
 
 import com.ntu.igts.utils.MD5Util;
 
+@Component
 @Path("image")
 public class ImageResource {
 
