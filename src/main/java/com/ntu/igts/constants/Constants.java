@@ -33,6 +33,10 @@ public class Constants {
     public static final String LOGIN = "login";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String TAG = "tag";
+    public static final String NAME = "name";
+    public static final String STANDARD_NAME = "standardname";
+    public static final String ID = "id";
 
     /** URL Authorization */
     public static final String URL_LOGIN = "authorization/admin";

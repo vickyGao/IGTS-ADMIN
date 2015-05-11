@@ -3,10 +3,8 @@ package com.ntu.igts.resource;
 import javax.annotation.Resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -18,7 +16,7 @@ import com.ntu.igts.model.SessionContext;
 import com.ntu.igts.model.container.LoginForm;
 import com.ntu.igts.service.AuthorizationService;
 import com.ntu.igts.utils.JsonUtil;
-import com.ntu.igts.validator.LoginValidator;
+import com.ntu.igts.validator.AuthorizationValidator;
 
 @Component
 @Path("authorization")
@@ -27,7 +25,7 @@ public class AuthorizationResource {
     @Resource
     private AuthorizationService authorizationService;
     @Resource
-    private LoginValidator loginValidator;
+    private AuthorizationValidator loginValidator;
 
     @POST
     @Path("login")

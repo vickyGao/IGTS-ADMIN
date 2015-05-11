@@ -10,7 +10,7 @@ import com.ntu.igts.utils.ValidationUtil;
 import net.sf.json.JSONObject;
 
 @Component
-public class LoginValidator {
+public class AuthorizationValidator {
 
     public void validateLogin(String postBody) {
         JSONObject jsonPostBody = JSONObject.fromObject(postBody).optJSONObject(Constants.LOGIN);

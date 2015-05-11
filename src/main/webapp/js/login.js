@@ -50,7 +50,8 @@ function showDialog(type, content) {
         title: type,
         content: content,
         skin: className,
-        quickClose: true
+        quickClose: true,
+        zIndex:9999
     });
     d.show();
 }

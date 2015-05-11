@@ -1,16 +1,83 @@
-<div class="panel-group" id="accordion" ng-controller="TagListController">
-    <div class="panel panel-default" ng-repeat="tag in tags">
-        <div class="panel-heading" style="cursor: pointer">
-            <h4 class="panel-title">
+<div ng-controller="TagManagementController">
+    <div class="row">
+        <button type="button" class="btn btn-success navbar-btn pull-right button-create" ng-controller="CreateTagController" ng-click="doCreate()">创建标签</button>
+    </div>
+    <div class="panel-group" id="accordion" ng-controller="TagListController">
+        <div class="panel panel-default" ng-repeat="tag in tags">
+            <div class="panel-heading clearfix" style="cursor: pointer">
+                <h4 class="panel-title">
                 <span data-toggle="collapse" data-parent="#accordion"
-                   data-target="#{{tag.standardname}}">
+                      data-target="#{{tag.standardname}}">
                     {{tag.name}}
                 </span>
-            </h4>
-        </div>
-        <div id="{{tag.standardname}}" class="panel-collapse collapse in">
-            <div class="panel-body" ng-repeat="tag in tag.tags">{{tag.name}}
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-warning" ng-click="doEditTag(tag.id)"><span
+                                class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" class="btn btn-danger" ng-click="doDeleteTag(tag.id)"><span
+                                class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                </h4>
             </div>
+            <div id="{{tag.standardname}}" class="panel-collapse collapse in">
+                <div class="panel-body" ng-repeat="subtag in tag.tags"><span>{{subtag.name}}</span>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-warning" ng-click="doEditTag(subtag.id)"><span
+                                class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger" ng-click="doDeleteTag(subtag.id)"><span
+                                class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="saveTagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+         ng-controller="SaveTagController">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">{{saveTagDialogName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" action="#" id="formAddStudent" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">标签名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="tag.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">标签代号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="tag.standardname" ng-disabled="isDisabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">父标签</label>
+                            <div class="col-sm-10">
+                                <div class="btn-group" ng-model="tagListFilterService.name">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        {{firstTag.name}} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu my-dropdown" role="menu">
+                                        <li ng-repeat="tag in topLevelTags" ng-click="doSelect(tag)">{{tag.name}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="btnSubmitStudent" ng-click="doSubmit()">提交</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
         </div>
     </div>
 </div>

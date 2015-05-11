@@ -305,3 +305,13 @@
     color: #31708f;
     background-color: #d9edf7;
 }
+.button-create {
+    margin-right: 30px;
+    margin-bottom: 10px;
+}
+
+ul.dropdown-menu.my-dropdown :hover{
+    cursor: pointer;
+    background-color: #006dcc;
+    color: #ffffff;
+}

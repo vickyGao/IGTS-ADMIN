@@ -1,23 +1,23 @@
 var rootApp = angular.module('RootApp', ['ngCookies', 'ngRoute']);
 
 /* Add authHttp to send request, will add token into header automatically */
-rootApp.factory('authHttp', function($http, $cookieStore) {
+rootApp.factory('authHttp', function ($http, $cookieStore) {
     var authHttp = {};
 
-    var extendHeaders = function(config) {
+    var extendHeaders = function (config) {
         config.headers = config.headers || {};
         config.headers['x-auth-token'] = $cookieStore.get('x-auth-token');
     };
 
-    angular.forEach(['get', 'delete', 'head'], function(name) {
-        authHttp[name] = function(url, config) {
+    angular.forEach(['get', 'delete', 'head'], function (name) {
+        authHttp[name] = function (url, config) {
             config = config || {};
             extendHeaders(config);
             return $http[name](url, config);
-        } ;
+        };
     });
     angular.forEach(['post', 'put'], function (name) {
-        authHttp[name] = function(url, data, config) {
+        authHttp[name] = function (url, data, config) {
             config = config || {};
             extendHeaders(config);
             return $http[name](url, data, config);
@@ -111,7 +111,53 @@ function showDialog(type, content) {
         title: type,
         content: content,
         skin: className,
-        quickClose: true
+        quickClose: true,
+        zIndex: 9999
     });
     d.show();
 }
+
+/* Display a dialog with ok/cancel */
+function showConfirmDialog(content, callback) {
+    var d = dialog({
+        title: '提示',
+        content: content,
+        okValue: '确定',
+        ok: function () {
+            callback.ok(this);
+        },
+        cancelValue: '取消',
+        quickClose: true,
+        zIndex: 9999,
+        cancel: function () {
+            callback.cancel();
+        }
+    });
+    d.show();
+}
+
+/* Services about CRUD of Tag */
+rootApp.factory('TagService', function (authHttp) {
+    return {
+        getDetail: function (tagId) {
+            var path = 'api/tag/entity/' + tagId;
+            return authHttp.get(path);
+        },
+        listDetail: function () {
+            return authHttp.get('api/tag/detail');
+        },
+        list: function () {
+            return authHttp.get('api/tag/entity');
+        },
+        create: function (tag) {
+            return authHttp.post('api/tag/entity', tag);
+        },
+        update: function (tag) {
+            return authHttp.put('api/tag/entity', tag);
+        },
+        delete: function (tagId) {
+            var path = 'api/tag/entity/' + tagId;
+            return authHttp.delete(path);
+        }
+    };
+});
