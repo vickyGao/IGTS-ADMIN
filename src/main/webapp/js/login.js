@@ -7,7 +7,6 @@ loginApp.controller('LoginController', function ($scope, $http, $cookieStore) {
             .success(function (data) {
                 $cookieStore.put('x-auth-token', data.sessioncontext.token);
                 window.location.href = 'index.html';
-                return;
             });
     }
 });
@@ -18,12 +17,12 @@ loginApp.config(function ($httpProvider) {
 });
 
 /* Deal with exceptions in login.html */
-loginApp.factory('errorHttpInterceptor', function($q) {
+loginApp.factory('errorHttpInterceptor', function ($q) {
     return {
-        'response':function(response) {
+        'response': function (response) {
             return response;
         },
-        'responseError':function(rejection) {
+        'responseError': function (rejection) {
             if (rejection.status === 412) {
                 showDialog('Warning', rejection.data);
             } else if (rejection.status >= 400 && rejection.status <= 500) {
@@ -45,13 +44,13 @@ function showDialog(type, content) {
         className = 'dialog-error';
     }
     var d = dialog({
-        fixed:true,
+        fixed: true,
         align: 'right top',
         title: type,
         content: content,
         skin: className,
         quickClose: true,
-        zIndex:9999
+        zIndex: 9999
     });
     d.show();
 }

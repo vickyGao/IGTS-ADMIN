@@ -40,4 +40,5 @@ public class Image extends BaseModel implements Serializable {
     public void setUri(String uri) {
         this.uri = uri;
     }
+
 }

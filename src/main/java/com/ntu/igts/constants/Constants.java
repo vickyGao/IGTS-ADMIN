@@ -10,6 +10,7 @@ public class Constants {
     public static final String MGMT_HOST_PROPS_KEY = "igts.host";
     public static final String MGMT_PORT_PROPS_KEY = "igts.port";
     public static final String MGMT_BASE_URI_PROPS_KEY = "igts.api.path";
+    public static final String DEFAULT_PAGINATION_SIZE = "igts.pagination.size";
 
     /** Field name id used in BaseModel */
     public static String FIELD_ID = "id";
@@ -37,6 +38,22 @@ public class Constants {
     public static final String NAME = "name";
     public static final String STANDARD_NAME = "standardname";
     public static final String ID = "id";
+    public static final String SEARCH_TERM = "search_term";
+    public static final String PAGE = "page";
+    public static final String SIZE = "size";
+    public static final String SORTBY = "sortby";
+    public static final String ORDERBY = "orderby";
+    public static final String START_PRICE = "startprice";
+    public static final String END_PRICE = "endprice";
+    public static final String DISTRICT = "district";
+    public static final String STATUS = "status";
+    public static final String TAG_ID = "tagid";
+    public static final String ACTIVE_YN = "activeyn";
+    public static final String ADMIN = "admin";
+    public static final String ADMIN_NAME = "adminname";
+    public static final String ADMIN_PASSWORD = "adminpassword";
+    public static final String NEWPWD1 = "newpwd1";
+    public static final String NEWPWD2 = "newpwd2";
 
     /** URL Authorization */
     public static final String URL_LOGIN = "authorization/admin";
@@ -49,7 +66,9 @@ public class Constants {
     public static final String URL_ADMIN_GET_BY_TOKEN = "admin/detail/token";
 
     /** URL Commodity */
-    public static final String URL_COMMODITY_SEARCH_TERM = "commodity/search_term";
+    public static final String URL_COMMODITY_SEARCH_TERM = "commodity/admin/search_term";
+    public static final String URL_COMMODITY_ACTIVE_STATE = "commodity/admin/activestate";
+    public static final String URL_COMMODITY_DETAIL = "commodity/admin/detail";
 
     /** URL Custom Module */
     public static final String URL_CUSTOM_MODULE_ENTITY = "custommodule/entity";

@@ -3,6 +3,10 @@ package com.ntu.igts.model.container;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
 
+import com.ntu.igts.enums.ActiveStateEnum;
+import com.ntu.igts.enums.CommodityStatusEnum;
+import com.ntu.igts.enums.OrderByEnum;
+import com.ntu.igts.enums.SortByEnum;
 import com.ntu.igts.utils.StringUtil;
 
 public class Query {
@@ -17,10 +21,9 @@ public class Query {
     @DefaultValue("10")
     private int size;
     @QueryParam("sortby")
-    private String sortBy;
+    private SortByEnum sortBy;
     @QueryParam("orderby")
-    @DefaultValue("ASC")
-    private String orderBy;
+    private OrderByEnum orderBy;
     @QueryParam("startprice")
     private double startPrice;
     @QueryParam("endprice")
@@ -28,6 +31,14 @@ public class Query {
     @QueryParam("district")
     @DefaultValue(StringUtil.EMPTY)
     private String district;
+    @QueryParam("status")
+    @DefaultValue(StringUtil.EMPTY)
+    private CommodityStatusEnum status;
+    @QueryParam("tagid")
+    @DefaultValue(StringUtil.EMPTY)
+    private String tagId;
+    @QueryParam("activeyn")
+    private ActiveStateEnum activeYN;
 
     public String getSearchTerm() {
         return searchTerm;
@@ -53,19 +64,19 @@ public class Query {
         this.size = size;
     }
 
-    public String getSortBy() {
+    public SortByEnum getSortBy() {
         return sortBy;
     }
 
-    public void setSortBy(String sortBy) {
+    public void setSortBy(SortByEnum sortBy) {
         this.sortBy = sortBy;
     }
 
-    public String getOrderBy() {
+    public OrderByEnum getOrderBy() {
         return orderBy;
     }
 
-    public void setOrderBy(String orderBy) {
+    public void setOrderBy(OrderByEnum orderBy) {
         this.orderBy = orderBy;
     }
 
@@ -91,6 +102,30 @@ public class Query {
 
     public void setDistrict(String district) {
         this.district = district;
+    }
+
+    public CommodityStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(CommodityStatusEnum status) {
+        this.status = status;
+    }
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
+    }
+
+    public ActiveStateEnum getActiveYN() {
+        return activeYN;
+    }
+
+    public void setActiveYN(ActiveStateEnum activeYN) {
+        this.activeYN = activeYN;
     }
 
 }

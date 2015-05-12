@@ -2,14 +2,26 @@ rootApp.controller('RootController', function ($scope) {
     $scope.$on('event:loginRequired', function () {
         window.location.href = 'login.html';
     });
+    $scope.$on('event:showViewAdminDetailModalRequest', function (event, adminId) {
+        $scope.$broadcast('event:showViewAdminDetailModal', adminId);
+    });
+    $scope.$on('event:showUpdatePasswordModalRequest', function (event, adminId) {
+        $scope.$broadcast('event:showUpdatePasswordModal', adminId);
+    });
 });
 
-rootApp.controller('headerController', function ($scope, authHttp) {
-    authHttp.get('api/admin/detail/token').success(function (data) {
+rootApp.controller('headerController', function ($scope, AdminService, AuthorizationService) {
+    AdminService.getByToken().success(function (data) {
         $scope.admin = data.admin;
     });
     $scope.doLogout = function () {
-        authHttp.delete('api/authorization/logout');
+        AuthorizationService.logout();
+    }
+    $scope.doViewDetail = function (adminId) {
+        $scope.$emit('event:showViewAdminDetailModalRequest', adminId);
+    }
+    $scope.doUpdatePassword = function (adminId) {
+        $scope.$emit('event:showUpdatePasswordModalRequest', adminId);
     }
 });
 
@@ -56,8 +68,6 @@ rootApp.controller('SaveTagController', function ($scope, TagService) {
                 });
             });
         });
-
-
         $scope.saveTagDialogName = '编辑标签';
         $scope.isDisabled = true;
     });
@@ -113,3 +123,154 @@ rootApp.controller('CreateTagController', function ($scope) {
         $scope.$emit('event:createTagRequest');
     }
 });
+
+rootApp.controller('CommodityListController', function ($scope, CommodityService) {
+    CommodityService.query().success(function (data) {
+        $scope.commodityList = data.queryresult.content;
+        var currentPage = data.queryresult.currentpage;
+        var totalPages = data.queryresult.totalpages;
+        $scope.$emit('event:showPaginationRequest', currentPage, totalPages);
+    });
+    $scope.$on('event:flushCommodityList', function (event, config) {
+        CommodityService.query(config).success(function (data) {
+            $scope.commodityList = data.queryresult.content;
+            var currentPage = data.queryresult.currentpage;
+            var totalPages = data.queryresult.totalpages;
+            $scope.$emit('event:showPaginationRequest', currentPage, totalPages);
+        });
+    });
+    $scope.doViewDetail = function (commodityId) {
+        CommodityService.getDetail(commodityId).success(function (data) {
+            $('#viewCommodityModal').modal('show');
+        });
+    }
+    $scope.doUnderCarriate = function (commodityId) {
+        CommodityService.updateActiveState('NEGATIVE', commodityId).success(function () {
+            var config = {
+                search_term: commoditySearchTerm,
+                page: currentCommodityPageGlobal
+            }
+            $scope.$emit('event:flushCommodityList', config);
+        });
+    }
+    $scope.doGrounding = function (commodityId) {
+        CommodityService.updateActiveState('ACTIVE', commodityId).success(function () {
+            var config = {
+                search_term: commoditySearchTerm,
+                page: currentCommodityPageGlobal
+            }
+            $scope.$emit('event:flushCommodityList', config);
+        });
+    }
+});
+
+rootApp.controller('PaginationController', function ($scope) {
+    var totalPageNumber = 0;
+    $scope.$on('event:showPagination', function (event, currentPage, totalPages) {
+        $scope.isFirstPage = false;
+        $scope.isLastPage = false;
+        var pageArray = [];
+        totalPageNumber = totalPages;
+        if (totalPages > 10) {
+            for (i = 1; i <= 10; i++) {
+                var currentPageFlag = false;
+                if (i - 1 == currentPage) {
+                    currentPageFlag = true;
+                }
+                pageArray[i - 1] = {
+                    pageNumber: i,
+                    isCurrentPage: currentPageFlag
+                }
+            }
+        } else {
+            for (i = 1; i <= totalPages; i++) {
+                var currentPageFlag = false;
+                if (i - 1 == currentPage) {
+                    currentPageFlag = true;
+                }
+                pageArray[i - 1] = {
+                    pageNumber: i,
+                    isCurrentPage: currentPageFlag
+                }
+            }
+        }
+        $scope.previousPageNumber = currentPage;
+        $scope.NextPageNumber = currentPage + 2;
+        $scope.pages = pageArray;
+        if (currentPage == 0) {
+            $scope.isFirstPage = true;
+        }
+        if (currentPage == totalPages - 1) {
+            $scope.isLastPage = true;
+        }
+        currentCommodityPageGlobal = currentPage;
+    });
+    $scope.doJumpPage = function (pageNumber) {
+        pageNumber -= 1;
+        if (pageNumber < 0) {
+            showDialog('Warning', '当前为首页');
+        } else if (pageNumber >= totalPageNumber) {
+            showDialog('Warning', '当前为尾页');
+        } else {
+            var config = {
+                search_term: commoditySearchTerm,
+                page: pageNumber
+            }
+            $scope.$emit('event:flushCommodityListRequest', config);
+        }
+        return;
+    }
+});
+
+rootApp.controller('CommodityManagementController', function ($scope) {
+    $scope.$on('event:showPaginationRequest', function (event, currentPage, totalPages) {
+        $scope.$broadcast('event:showPagination', currentPage, totalPages);
+    });
+    $scope.$on('event:flushCommodityListRequest', function (event, config) {
+        $scope.$broadcast('event:flushCommodityList', config);
+    });
+});
+
+rootApp.controller('CommoditySearchController', function ($scope) {
+    $scope.doSearch = function () {
+        commoditySearchTerm = $scope.searchContent;
+        var config = {
+            search_term: $scope.searchContent
+        }
+        $scope.$emit('event:flushCommodityListRequest', config);
+    }
+});
+
+rootApp.controller('ViewAdminDetailController', function ($scope, AdminService) {
+    $scope.$on('event:showViewAdminDetailModal', function (event, adminId) {
+        AdminService.getDetail(adminId).success(function (data) {
+            $scope.admin = data.admin;
+        });
+        $('#viewAdminDetailModal').modal('show');
+    });
+});
+
+rootApp.controller('UpdatePasswordController', function ($scope, AdminService) {
+    $scope.$on('event:showUpdatePasswordModal', function (event, adminId) {
+        AdminService.getDetail(adminId).success(function (data) {
+            $scope.admin = data.admin;
+            $scope.admin.adminpassword = '';
+        });
+        $('#updatePasswordModal').modal('show');
+    });
+    $scope.doSubmit = function () {
+        if ($scope.admin.newPwd1 == $scope.admin.newPwd2) {
+            var request = {
+                "admin": $scope.admin
+            };
+            AdminService.update(request).success(function () {
+                $('#updatePasswordModal').modal('hide');
+            });
+        } else {
+            showDialog('Warning', '新密码不一致');
+        }
+    }
+});
+
+var commoditySearchTerm = '';
+var currentCommodityPageGlobal = 0;

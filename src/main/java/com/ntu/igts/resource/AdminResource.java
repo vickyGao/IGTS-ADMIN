@@ -1,17 +1,25 @@
 package com.ntu.igts.resource;
 
 import javax.annotation.Resource;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Component;
 
 import com.ntu.igts.constants.Constants;
+import com.ntu.igts.exception.ServiceWarningException;
+import com.ntu.igts.i18n.MessageKeys;
 import com.ntu.igts.model.Admin;
 import com.ntu.igts.service.AdminService;
 import com.ntu.igts.utils.JsonUtil;
 import com.ntu.igts.utils.StringUtil;
+import com.ntu.igts.validator.AdminValidator;
 
 @Component
 @Path("admin")
@@ -19,6 +27,8 @@ public class AdminResource {
 
     @Resource
     private AdminService adminService;
+    @Resource
+    private AdminValidator adminValidator;
 
     @GET
     @Path("detail/token")
@@ -26,5 +36,30 @@ public class AdminResource {
         Admin admin = adminService.getAdminByToken(token);
         admin.setAdminPassword(StringUtil.EMPTY);
         return JsonUtil.getJsonStringFromPojo(admin);
+    }
+
+    @PUT
+    @Path("entity")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String update(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token, String inString) {
+        adminValidator.validateUpdate(inString);
+        Admin admin = JsonUtil.getPojoFromJsonString(inString, Admin.class);
+        if (admin.getNewPwd1().equals(admin.getNewPwd2())) {
+            admin.setNewPassword(admin.getNewPwd1());
+        } else {
+            throw new ServiceWarningException("Input not consistent", MessageKeys.INPUT_NOT_CONSISTENT);
+        }
+        Admin updatedAdmin = adminService.updateAdmin(token, admin);
+        return JsonUtil.getJsonStringFromPojo(updatedAdmin);
+    }
+
+    @GET
+    @Path("detail/{adminid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAdminById(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token,
+                    @PathParam("adminid") String adminId) {
+        Admin returnAdmin = adminService.GetDetailById(token, adminId);
+        return JsonUtil.getJsonStringFromPojo(returnAdmin);
     }
 }

@@ -1,1 +1,40 @@
-<h1>管理员管理页面</h1>
+<div ng-controller="AdminManagementController">
+    <div class="row my-row" ng-controller="AdminSearchController">
+        <div class="col-md-8" style="padding-left: 0px; padding-right: 0px">
+            <div class="input-group my-search-box">
+                <input type="text" class="form-control pull-right" placeholder="请输入搜索关键字"
+                       aria-describedby="basic-addon1" ng-model="searchContent">
+            </div>
+        </div>
+        <div class="col-md-4" style="padding-left: 0px">
+            <button type="button" class="btn btn-success navbar-btn button-create my-search-button"
+                    ng-click="doSearch()">搜索
+            </button>
+        </div>
+    </div>
+    <div class="row my-row" ng-controller="AdminListController">
+        <table class="table table-bordered">
+            <caption>管理员列表</caption>
+            <thead>
+            <tr>
+                <th>用户名</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="admin in AdminList">
+                <th>{{admin.adminname}}</th>
+                <th>
+                    <button type="button" class="btn btn-success" ng-click="doViewDetail(admin.id)"><span
+                            class="glyphicon glyphicon-search"></span></button>
+                    <button type="button" class="btn btn-warning" ng-click="doUpdate(admin.id)"><span
+                            class="glyphicon glyphicon-off"></span></button>
+                    <button type="button" class="btn btn-danger" ng-click="doDelete(admin.id)"><span
+                            class="glyphicon glyphicon-off"></span>
+                    </button>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -41,12 +41,14 @@ function indexRouteConfig($routeProvider) {
             templateUrl: 'template/user-management.html'
         }).
         when('/commodityManagement', {
+            controller: 'CommodityListController',
             templateUrl: 'template/commodity-management.html'
         }).
         when('/homePageManagement', {
             templateUrl: 'template/home-page-management.html'
         }).
         when('/tagManagement', {
+            controller: 'TagListController',
             templateUrl: 'template/tag-management.html'
         }).
         when('/sensitiveWordManagement', {
@@ -160,4 +162,44 @@ rootApp.factory('TagService', function (authHttp) {
             return authHttp.delete(path);
         }
     };
+});
+
+rootApp.factory('CommodityService', function (authHttp) {
+    return{
+        getDetail: function (commodityId) {
+            var path = 'api/commodity/detail/' + commodityId;
+            return authHttp.get(path);
+        },
+        query: function (conditions) {
+            var config = {params: conditions};
+            return authHttp.get('api/commodity/search_term', config);
+        },
+        updateActiveState: function (requestState, commodityId) {
+            var path = 'api/commodity/activestate/' + requestState + '/' + commodityId;
+            return authHttp.put(path);
+        }
+    }
+});
+
+rootApp.factory('AdminService', function (authHttp) {
+    return {
+        getDetail: function (adminId) {
+            var path = 'api/admin/detail' + '/' + adminId;
+            return authHttp.get(path);
+        },
+        update: function (admin) {
+            return authHttp.put('api/admin/entity', admin);
+        },
+        getByToken: function () {
+            return authHttp.get('api/admin/detail/token');
+        }
+    }
+});
+
+rootApp.factory('AuthorizationService', function (authHttp) {
+    return {
+        logout: function () {
+            return authHttp.delete('api/authorization/logout');
+        }
+    }
 });

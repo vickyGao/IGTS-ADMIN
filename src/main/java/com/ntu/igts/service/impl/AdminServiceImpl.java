@@ -25,4 +25,23 @@ public class AdminServiceImpl implements AdminService {
         return JsonUtil.getPojoFromJsonString(response, Admin.class);
     }
 
+    @Override
+    public Admin GetDetailById(String token, String adminId) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put(Constants.HEADER_X_AUTH_HEADER, token);
+        String path = Constants.URL_ADMIN_DETAIL + "/" + adminId;
+        String response = InvocationUtil.sendGetRequest(path, header, MediaType.APPLICATION_JSON);
+        return JsonUtil.getPojoFromJsonString(response, Admin.class);
+    }
+
+    @Override
+    public Admin updateAdmin(String token, Admin admin) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put(Constants.HEADER_X_AUTH_HEADER, token);
+        String putBody = JsonUtil.getJsonStringFromPojo(admin);
+        String response = InvocationUtil.sendPutRequest(Constants.URL_ADMIN_ENTITY, header, MediaType.APPLICATION_JSON,
+                        putBody, MediaType.APPLICATION_JSON);
+        return JsonUtil.getPojoFromJsonString(response, Admin.class);
+    }
+
 }

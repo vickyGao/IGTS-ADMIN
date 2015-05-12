@@ -315,3 +315,34 @@ ul.dropdown-menu.my-dropdown :hover{
     background-color: #006dcc;
     color: #ffffff;
 }
+
+.my-row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.my-search-box {
+    float: right;
+    margin-right: 20px;
+    width: 500px;
+    margin-top: 5px;
+}
+
+.my-search-button {
+    margin-top: 5px;
+    height: 34px;
+    width: 200px;
+}
+
+.my-pagination {
+    margin-left: 500px;
+}
+
+ul.pagination.my-pagination :hover {
+    cursor: pointer;
+    background-color: #ddd;
+    color: #ffffff;
+}
+.paginationdisabled {
+    cursor:not-allowed !important;
+}
