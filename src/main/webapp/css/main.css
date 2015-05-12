@@ -346,3 +346,16 @@ ul.pagination.my-pagination :hover {
 .paginationdisabled {
     cursor:not-allowed !important;
 }
+
+.little-table {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.col-for-button3 {
+    width: 147px;
+}
+
+.col-for-button4 {
+    width: 192px;
+}

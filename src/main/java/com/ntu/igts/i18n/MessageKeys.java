@@ -19,5 +19,6 @@ public class MessageKeys {
     /** Admin */
     public static final String ADMIN_PASSWORD = "admin.password";
     public static final String ADMIN_NEW_PASSWORD = "admin.new.password";
+    public static final String ADMIN_NAME = "admin.name";
 
 }

@@ -8,67 +8,50 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.stereotype.Service;
 
 import com.ntu.igts.constants.Constants;
-import com.ntu.igts.model.Admin;
+import com.ntu.igts.enums.ActiveStateEnum;
+import com.ntu.igts.model.SensitiveWord;
 import com.ntu.igts.model.container.Pagination;
 import com.ntu.igts.model.container.Query;
-import com.ntu.igts.service.AdminService;
+import com.ntu.igts.service.SensitiveWordService;
 import com.ntu.igts.utils.ConfigManagmentUtil;
 import com.ntu.igts.utils.InvocationUtil;
 import com.ntu.igts.utils.JsonUtil;
 import com.ntu.igts.utils.StringUtil;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class SensitiveWordServiceImpl implements SensitiveWordService {
 
     @Override
-    public Admin getAdminByToken(String token) {
+    public SensitiveWord create(String token, SensitiveWord word) {
         Map<String, String> header = new HashMap<String, String>();
         header.put(Constants.HEADER_X_AUTH_HEADER, token);
-        String response = InvocationUtil.sendGetRequest(Constants.URL_ADMIN_GET_BY_TOKEN, header,
-                        MediaType.APPLICATION_JSON);
-        return JsonUtil.getPojoFromJsonString(response, Admin.class);
-    }
-
-    @Override
-    public Admin GetDetailById(String token, String adminId) {
-        Map<String, String> header = new HashMap<String, String>();
-        header.put(Constants.HEADER_X_AUTH_HEADER, token);
-        String path = Constants.URL_ADMIN_DETAIL + "/" + adminId;
-        String response = InvocationUtil.sendGetRequest(path, header, MediaType.APPLICATION_JSON);
-        return JsonUtil.getPojoFromJsonString(response, Admin.class);
-    }
-
-    @Override
-    public Admin updateAdmin(String token, Admin admin) {
-        Map<String, String> header = new HashMap<String, String>();
-        header.put(Constants.HEADER_X_AUTH_HEADER, token);
-        String putBody = JsonUtil.getJsonStringFromPojo(admin);
-        String response = InvocationUtil.sendPutRequest(Constants.URL_ADMIN_ENTITY, header, MediaType.APPLICATION_JSON,
-                        putBody, MediaType.APPLICATION_JSON);
-        return JsonUtil.getPojoFromJsonString(response, Admin.class);
-    }
-
-    @Override
-    public Admin createAdmin(String token, Admin admin) {
-        Map<String, String> header = new HashMap<String, String>();
-        header.put(Constants.HEADER_X_AUTH_HEADER, token);
-        String postBody = JsonUtil.getJsonStringFromPojo(admin);
-        String response = InvocationUtil.sendPostRequest(Constants.URL_ADMIN_ENTITY, header,
+        String postBody = JsonUtil.getJsonStringFromPojo(word);
+        String response = InvocationUtil.sendPostRequest(Constants.URL_SENSITIVE_WORD_ENTITY, header,
                         MediaType.APPLICATION_JSON, postBody, MediaType.APPLICATION_JSON);
-        return JsonUtil.getPojoFromJsonString(response, Admin.class);
+        return JsonUtil.getPojoFromJsonString(response, SensitiveWord.class);
     }
 
     @Override
-    public void deleteAdmin(String token, String adminId) {
+    public SensitiveWord updateSensitiveWordState(String token, ActiveStateEnum activeStateEnum, String sensitiveWordId) {
         Map<String, String> header = new HashMap<String, String>();
         header.put(Constants.HEADER_X_AUTH_HEADER, token);
-        String path = Constants.URL_ADMIN_ENTITY + "/" + adminId;
+        String path = Constants.URL_SENSITIVE_WORD_STATUS + "/" + activeStateEnum.name() + "/" + sensitiveWordId;
+        String response = InvocationUtil.sendPutRequest(path, header, MediaType.APPLICATION_JSON, StringUtil.EMPTY,
+                        MediaType.APPLICATION_JSON);
+        return JsonUtil.getPojoFromJsonString(response, SensitiveWord.class);
+    }
+
+    @Override
+    public void delete(String token, String sensitiveWordId) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put(Constants.HEADER_X_AUTH_HEADER, token);
+        String path = Constants.URL_SENSITIVE_WORD_ENTITY + "/" + sensitiveWordId;
         InvocationUtil.sendDeleteRequest(path, header, MediaType.TEXT_PLAIN);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Pagination<Admin> getPaginatedAdmins(String token, Query query) {
+    public Pagination<SensitiveWord> getBySearchTerm(String token, Query query) {
         Map<String, String> header = new HashMap<String, String>();
         header.put(Constants.HEADER_X_AUTH_HEADER, token);
         Map<String, String> queryParams = new HashMap<String, String>();
@@ -89,7 +72,7 @@ public class AdminServiceImpl implements AdminService {
         } else {
             queryParams.put(Constants.SIZE, ConfigManagmentUtil.getConfigProperties(Constants.DEFAULT_PAGINATION_SIZE));
         }
-        String response = InvocationUtil.sendGetRequest(Constants.URL_ADMIN_SEARCH_TERM, header,
+        String response = InvocationUtil.sendGetRequest(Constants.URL_SENSITIVE_WORD_SEARCH_TERM, header,
                         MediaType.APPLICATION_JSON, queryParams);
         return JsonUtil.getPojoFromJsonString(response, Pagination.class);
     }

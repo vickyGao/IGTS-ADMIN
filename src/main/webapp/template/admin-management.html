@@ -12,13 +12,21 @@
             </button>
         </div>
     </div>
+    <div class="row my-row" ng-controller="CreateAdminController">
+        <div class="col-md-8" style="padding-left: 0px; padding-right: 0px"></div>
+        <div class="col-md-4" style="padding-left: 0px">
+            <button type="button" class="btn btn-success navbar-btn button-create my-search-button"
+                    ng-click="doCreate()">创建管理员
+            </button>
+        </div>
+    </div>
     <div class="row my-row" ng-controller="AdminListController">
-        <table class="table table-bordered">
+        <table class="table table-bordered little-table">
             <caption>管理员列表</caption>
             <thead>
             <tr>
                 <th>用户名</th>
-                <th>操作</th>
+                <th class="col-for-button3">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -28,13 +36,63 @@
                     <button type="button" class="btn btn-success" ng-click="doViewDetail(admin.id)"><span
                             class="glyphicon glyphicon-search"></span></button>
                     <button type="button" class="btn btn-warning" ng-click="doUpdate(admin.id)"><span
-                            class="glyphicon glyphicon-off"></span></button>
+                            class="glyphicon glyphicon-pencil"></span></button>
                     <button type="button" class="btn btn-danger" ng-click="doDelete(admin.id)"><span
-                            class="glyphicon glyphicon-off"></span>
+                            class="glyphicon glyphicon-trash"></span>
                     </button>
                 </th>
             </tr>
             </tbody>
         </table>
+    </div>
+    <div class="row my-row" ng-controller="AdminPaginationController">
+        <ul class="pagination pagination-lg my-pagination">
+            <li ng-class="{paginationdisabled: isFirstPage}" ng-model="previousPageNumber"><a href=""
+                                                                                              ng-class="{paginationdisabled: isFirstPage}"
+                                                                                              ng-click="doJumpPage(previousPageNumber)">&laquo;</a>
+            </li>
+            <li ng-class="{active: page.isCurrentPage}" ng-repeat="page in pages"
+                ng-click="doJumpPage(page.pageNumber)"><a href="">{{page.pageNumber}}</a></li>
+            <li ng-class="{paginationdisabled: isLastPage}" ng-model="NextPageNumber"><a href=""
+                                                                                         ng-class="{paginationdisabled: isLastPage}"
+                                                                                         ng-click="doJumpPage(NextPageNumber)">&raquo;</a>
+            </li>
+        </ul>
+        <br>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="createAdminModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true"
+         ng-controller="CreateAdminModalController">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">创建管理员</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" action="#" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="admin.adminname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">默认密码</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="defaultPassword" disabled="disabled">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="btnSubmitStudent" ng-click="doSubmit()">提交</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
     </div>
 </div>

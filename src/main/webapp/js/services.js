@@ -184,7 +184,7 @@ rootApp.factory('CommodityService', function (authHttp) {
 rootApp.factory('AdminService', function (authHttp) {
     return {
         getDetail: function (adminId) {
-            var path = 'api/admin/detail' + '/' + adminId;
+            var path = 'api/admin/detail/' + adminId;
             return authHttp.get(path);
         },
         update: function (admin) {
@@ -192,6 +192,17 @@ rootApp.factory('AdminService', function (authHttp) {
         },
         getByToken: function () {
             return authHttp.get('api/admin/detail/token');
+        },
+        create: function (admin) {
+            return authHttp.post('api/admin/entity', admin);
+        },
+        delete: function (adminId) {
+            var path = 'api/admin/entity/' + adminId;
+            return authHttp.delete(path);
+        },
+        query: function (conditions) {
+            var config = {params: conditions};
+            return authHttp.get('api/admin/search_term', config);
         }
     }
 });
@@ -200,6 +211,35 @@ rootApp.factory('AuthorizationService', function (authHttp) {
     return {
         logout: function () {
             return authHttp.delete('api/authorization/logout');
+        }
+    }
+});
+
+rootApp.factory('SystemService', function (authHttp) {
+    return {
+        get: function () {
+            return authHttp.get('api/system/defaultpassword');
+        }
+    }
+});
+
+rootApp.factory('UserService', function (authHttp) {
+    return {
+        update: function (activeYn, userid) {
+            var path = 'api/user/entity/' + activeYn + '/' + userid;
+            return authHttp.put(path);
+        },
+        delete: function (userid) {
+            var path = 'api/user/entity/' + userid;
+            return authHttp.delete(path);
+        },
+        getDetail: function (userid) {
+            var path = 'api/user/detail/' + userid;
+            return authHttp.get(path);
+        },
+        query: function (conditions) {
+            var config = {params: conditions};
+            return authHttp.get('api/user/search_term', config);
         }
     }
 });

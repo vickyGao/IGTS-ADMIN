@@ -11,6 +11,7 @@ public class Constants {
     public static final String MGMT_PORT_PROPS_KEY = "igts.port";
     public static final String MGMT_BASE_URI_PROPS_KEY = "igts.api.path";
     public static final String DEFAULT_PAGINATION_SIZE = "igts.pagination.size";
+    public static final String DEFAULT_PASSWORD = "igts.default.password";
 
     /** Field name id used in BaseModel */
     public static String FIELD_ID = "id";
@@ -76,6 +77,8 @@ public class Constants {
 
     /** URL Hot Commodities */
     public static final String URL_HOT_ENTITY = "hot/entity";
+    public static final String URL_HOT_DETAIL = "hot/detail";
+    public static final String URL_HOT_ADMIN_DETAIL = "hot/admin/detail";
 
     /** URL Message */
     public static final String URL_MESSAGE_ENTITY = "message/entity";
@@ -83,9 +86,12 @@ public class Constants {
     /** URL Sensitive Word */
     public static final String URL_SENSITIVE_WORD_ENTITY = "sensitiveword/entity";
     public static final String URL_SENSITIVE_WORD_SEARCH_TERM = "sensitiveword/search_term";
+    public static final String URL_SENSITIVE_WORD_STATUS = "sensitiveword/status";
 
     /** URL Slice */
     public static final String URL_SLICE_ENTITY = "slice/entity";
+    public static final String URL_SLICE_DETAIL = "slice/detail";
+    public static final String URL_SLICE_ADMIN_DETAIL = "slice/admin/detail";
 
     /** URL Tag */
     public static final String URL_TAG_ENTITY = "tag/entity";
@@ -96,5 +102,6 @@ public class Constants {
     public static final String URL_USER_DETAIL = "user/detail";
     public static final String URL_USER_SEARCH_TERM = "user/search_term";
     public static final String URL_USER_GET_BY_TOKEN = "user/detail/token";
+    public static final String URL_USER_ADMIN_DETAIL = "user/admin/detail";
 
 }

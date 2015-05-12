@@ -12,6 +12,15 @@ import com.ntu.igts.utils.ValidationUtil;
 @Component
 public class AdminValidator {
 
+    public void validateCreate(String postBody) {
+        JSONObject jsonPutBody = JSONObject.fromObject(postBody).optJSONObject(Constants.ADMIN);
+        if (!ValidationUtil.hasKey(jsonPutBody, Constants.ADMIN_NAME)
+                        || ValidationUtil.isFieldEmpty(jsonPutBody, Constants.ADMIN_NAME)) {
+            String[] param = { MessageKeys.ADMIN_NAME };
+            throw new ServiceWarningException("Admin name is required", MessageKeys.FIELD_REQUIRED, param);
+        }
+    }
+
     public void validateUpdate(String putBody) {
         JSONObject jsonPutBody = JSONObject.fromObject(putBody).optJSONObject(Constants.ADMIN);
         if (!ValidationUtil.hasKey(jsonPutBody, Constants.ADMIN_PASSWORD)
