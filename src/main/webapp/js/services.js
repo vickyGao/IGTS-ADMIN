@@ -61,14 +61,11 @@ function indexRouteConfig($routeProvider) {
             templateUrl: 'template/edit-password.html'
         }).
         when('/upload', {
-            templateUrl: 'template/upload.html'
+            templateUrl: 'template/image-management.html'
         }).
         when('/backup', {
             templateUrl: 'template/backup.html'
-        }).
-        otherwise({
-            redirectTo: '/index'
-        });
+        })
 }
 
 rootApp.config(indexRouteConfig);
@@ -240,6 +237,45 @@ rootApp.factory('UserService', function (authHttp) {
         query: function (conditions) {
             var config = {params: conditions};
             return authHttp.get('api/user/search_term', config);
+        }
+    }
+});
+
+rootApp.factory('SensitiveWordService', function (authHttp) {
+    return {
+        create: function (sensitiveWord) {
+            return authHttp.post('api/sensitiveword/entity', sensitiveWord);
+        },
+        updateActiveState: function (state, sensitiveWordId) {
+            var path = 'api/sensitiveword/status/' + state + '/' + sensitiveWordId;
+            return authHttp.put(path);
+        },
+        delete: function (sensitiveWordId) {
+            var path = 'api/sensitiveword/entity/' + sensitiveWordId;
+            return authHttp.delete(path);
+        },
+        query: function (conditions) {
+            var config = {params: conditions};
+            return authHttp.get('api/sensitiveword/search_term', config);
+        }
+    }
+});
+
+rootApp.factory('ImageService', function (authHttp) {
+    return {
+        getById: function (imageId) {
+            var path = 'api/image/entity/' + imageId;
+            return authHttp.get(path);
+        },
+        update: function (image) {
+            return authHttp.put('api/image/entity', image);
+        },
+        delete: function (imageId) {
+            var path = 'api/image/entity/' + imageId;
+            return authHttp.delete(path);
+        },
+        getByToken: function () {
+            return authHttp.get('api/image/entity');
         }
     }
 });

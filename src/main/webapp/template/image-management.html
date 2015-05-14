@@ -1,0 +1,59 @@
+<div ng-controller="ImageManagementController">
+    <div class="row my-row">
+        <div class="col-md-4">
+            <!-- D&D Zone-->
+            <div id="drag-and-drop-zone" class="uploader">
+                <div>点击添加要上传的图片</div>
+                <div class="browser">
+                    <label>
+                        <span>文件上传</span>
+                        <input type="file" name="files[]" accept="image/*" multiple="multiple" title='点击添加图片'>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">上传预览</h3>
+                </div>
+                <div class="panel-body demo-panel-files" id='demo-files'>
+                    <span class="demo-note">尚无图片被选中...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-row" ng-controller="ImageDisplayListController">
+        <button type="button" class="btn btn-success" style="margin-left: 20px;" ng-click="doDisplay()">刷新显示我上传的图片
+        </button>
+    </div>
+    <div class="row my-row" ng-controller="ImageListController">
+        <div data-target="#myScrollspy" data-offset="0"
+             style="overflow-y: auto; overflow-x: hidden; height:461px; width: 95%; overflow:auto; position: relative; margin: 0 auto;">
+            <div class="row">
+                <div class="col-sm-6 col-md-4" ng-repeat="image in imageList">
+                    <div class="thumbnail">
+                        <!--<img src="{{image.uri}}" alt="image.title">-->
+                        <img src="{{image.uri}}" alt="image.title">
+
+                        <div class="caption">
+                            <h3>{{image.title}}</h3>
+
+                            <p>{{image.description}}</p>
+
+                            <p>
+                                <a href="" class="btn btn-success" role="button" ng-click="doView(image.id)"><span
+                                        class="glyphicon glyphicon-search"></span></a>
+                                <a href="" class="btn btn-warning" role="button" ng-click="doUpdate(image.id)"><span
+                                        class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="" class="btn btn-danger" role="button" ng-click="doDelete(image.id)"><span
+                                        class="glyphicon glyphicon-trash"></span></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/my-upload.js"></script>

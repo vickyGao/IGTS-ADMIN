@@ -67,3 +67,5 @@ var adminSearchTerm = '';
 var currentAdminPageGlobal = 0;
 var userSearchTerm = '';
 var currentUserPageGlobal = 0;
+var sensitiveWordSearchTerm = '';
+var currentSensitiveWordPageGlobal = 0;

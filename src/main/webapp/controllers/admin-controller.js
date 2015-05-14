@@ -126,18 +126,14 @@ rootApp.controller('AdminPaginationController', function ($scope) {
         if (currentPage == 0) {
             $scope.isFirstPage = true;
         }
-        if (currentPage == totalPages - 1) {
+        if ((currentPage == totalPages - 1) || totalPages == 0) {
             $scope.isLastPage = true;
         }
         currentAdminPageGlobal = currentPage;
     });
     $scope.doJumpPage = function (pageNumber) {
         pageNumber -= 1;
-        if (pageNumber < 0) {
-            showDialog('Warning', '当前为首页');
-        } else if (pageNumber >= totalPageNumber) {
-            showDialog('Warning', '当前为尾页');
-        } else {
+        if (pageNumber >= 0 && pageNumber < totalPageNumber) {
             var config = {
                 search_term: adminSearchTerm,
                 page: pageNumber

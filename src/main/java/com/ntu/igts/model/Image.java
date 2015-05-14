@@ -16,6 +16,8 @@ public class Image extends BaseModel implements Serializable {
     private String description;
     @JsonProperty("uri")
     private String uri;
+    @JsonProperty("userid")
+    private String userId;
 
     public String getTitle() {
         return title;
@@ -39,6 +41,14 @@ public class Image extends BaseModel implements Serializable {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }

@@ -21,4 +21,10 @@ public class MessageKeys {
     public static final String ADMIN_NEW_PASSWORD = "admin.new.password";
     public static final String ADMIN_NAME = "admin.name";
 
+    /** Image */
+    public static final String UPLOAD_MEDIA_TYPE_NOT_ALLOWED = "upload.media.type.not.allowed";
+    public static final String CANNOT_FIND_LOACATION_FOR_IMAGE = "cannot.find.loacation.for.image";
+    public static final String IMAGE_UPLOAD_FAIL = "image.upload.fail";
+    public static final String NUMBER_IMAGE_UPLOADED = "number.image.uploaded";
+
 }
