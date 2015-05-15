@@ -69,4 +69,12 @@ public class TagServiceImpl implements TagService {
         String response = InvocationUtil.sendGetRequest(Constants.URL_TAG_ENTITY, header, MediaType.APPLICATION_JSON);
         return JsonUtil.getPojoFromJsonString(response, TagList.class);
     }
+
+    @Override
+    public int getTotalCount(String token) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put(Constants.HEADER_X_AUTH_HEADER, token);
+        String response = InvocationUtil.sendGetRequest(Constants.URL_TAG_TOTALCOUNT, header, MediaType.TEXT_PLAIN);
+        return Integer.valueOf(response);
+    }
 }

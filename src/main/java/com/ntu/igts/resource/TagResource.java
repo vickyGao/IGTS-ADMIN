@@ -82,4 +82,11 @@ public class TagResource {
         Tag returnTag = tagService.getTagById(token, tagId);
         return JsonUtil.getJsonStringFromPojo(returnTag);
     }
+
+    @GET
+    @Path("totalcount")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getTotalCount(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
+        return tagService.getTotalCount(token);
+    }
 }

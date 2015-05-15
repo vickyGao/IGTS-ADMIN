@@ -7,6 +7,7 @@
     <title>闲置物品交易系统后台管理</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-markdown.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/ui-dialog.css"/>
     <link rel="stylesheet" type="text/css" href="css/common.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
@@ -35,7 +36,7 @@
 <div class="container-fluid" style="margin-top:51px;" role="main">
     <div class="row">
         <div class="col-md-2" style="padding-left: 0px; padding-right: 0px">
-            <div class="sidebar-wrap">
+            <div class="sidebar-wrap" style="min-height: 928px;">
                 <div class="sidebar-title">
                     <h1><span class="glyphicon glyphicon-th-list"></span>菜单</h1>
                 </div>
@@ -62,7 +63,7 @@
                             <a href="#/index"><span class="glyphicon glyphicon-cog"></span>系统管理</a>
                             <ul class="sub-menu">
                                 <li><a href="#/upload"><span class="glyphicon glyphicon-upload"></span>上传功能测试</a></li>
-                                <li><a href="#/backup"><span class="glyphicon glyphicon-hdd"></span>数据备份</a></li>
+
                             </ul>
                         </li>
                     </ul>
@@ -159,9 +160,14 @@
 <script src="js/jquery.iframe-transport.js"></script>
 <script src="js/jquery.fileupload.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
+<script src="js/bootstrap-markdown.js"></script>
+<script src="js/to-markdown.js"></script>
+<script src="js/markdown.js"></script>
+<script src="js/marked.js"></script>
 <script src="js/angular.js"></script>
 <script src="js/angular-cookies.js"></script>
 <script src="js/angular-route.js"></script>
+<script src="js/ui-bootstrap-tpls-0.13.0.js"></script>
 <script src="js/demo-preview.js"></script>
 <script src="js/dmuploader.js"></script>
 <script src="js/dialog.js"></script>
@@ -171,8 +177,10 @@
 <script src="controllers/user-controller.js"></script>
 <script src="controllers/tag-controller.js"></script>
 <script src="controllers/commodity-controller.js"></script>
+<script src="controllers/commodity-detail-controller.js"></script>
 <script src="controllers/home-controller.js"></script>
 <script src="controllers/sensitive-word-controller.js"></script>
 <script src="controllers/image-controller.js"></script>
+<script src="controllers/dashboard-controller.js"></script>
 </body>
 </html>

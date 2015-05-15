@@ -2,6 +2,7 @@ package com.ntu.igts.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,6 +25,8 @@ public class Message extends BaseModel implements Serializable {
     private String userId;
     @JsonProperty("username")
     private String userName;
+    @JsonProperty("messagetime")
+    private Date messageTime;
     @JsonProperty("messages")
     private List<Message> messages = new ArrayList<Message>();
 
@@ -73,6 +76,14 @@ public class Message extends BaseModel implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Date getMessageTime() {
+        return messageTime;
+    }
+
+    public void setMessageTime(Date messageTime) {
+        this.messageTime = messageTime;
     }
 
     public List<Message> getMessages() {

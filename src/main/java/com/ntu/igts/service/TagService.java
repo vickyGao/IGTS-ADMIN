@@ -16,4 +16,6 @@ public interface TagService {
     public Tag getTagById(String token, String tagId);
 
     public TagList getAllTopLevelTags(String token);
+
+    public int getTotalCount(String token);
 }

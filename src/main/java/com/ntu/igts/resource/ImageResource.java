@@ -37,6 +37,7 @@ import com.ntu.igts.model.Image;
 import com.ntu.igts.model.container.ImageList;
 import com.ntu.igts.service.ImageService;
 import com.ntu.igts.utils.CommonUtil;
+import com.ntu.igts.utils.FileUtil;
 import com.ntu.igts.utils.JsonUtil;
 import com.ntu.igts.utils.MD5Util;
 import com.ntu.igts.utils.StringUtil;
@@ -164,5 +165,28 @@ public class ImageResource {
     public String getImagesByToken(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
         ImageList returnImageList = imageService.getImagesByToken(token);
         return JsonUtil.getJsonStringFromPojo(returnImageList);
+    }
+
+    @GET
+    @Path("amount")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getImageToalAmount(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
+        String path = imageService.getStoragePath(token);
+        return FileUtil.getFileAmountInFloder(path);
+    }
+
+    @GET
+    @Path("managedamount")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getManagedImageAmount(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
+        return imageService.getTotalManagedAmount(token);
+    }
+
+    @GET
+    @Path("size")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getTotalPictureSize(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
+        String path = imageService.getStoragePath(token);
+        return FileUtil.getFolderSize(path);
     }
 }

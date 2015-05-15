@@ -41,7 +41,8 @@ public class HotServiceImpl implements HotService {
     public void delete(String token, String hotId) {
         Map<String, String> header = new HashMap<String, String>();
         header.put(Constants.HEADER_X_AUTH_HEADER, token);
-        InvocationUtil.sendDeleteRequest(Constants.URL_HOT_ENTITY, header, MediaType.TEXT_PLAIN);
+        String path = Constants.URL_HOT_ENTITY + "/" + hotId;
+        InvocationUtil.sendDeleteRequest(path, header, MediaType.TEXT_PLAIN);
     }
 
     @Override

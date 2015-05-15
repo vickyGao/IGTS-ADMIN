@@ -84,4 +84,13 @@ public class ImageServiceImpl implements ImageService {
         return JsonUtil.getPojoFromJsonString(response, Image.class);
     }
 
+    @Override
+    public int getTotalManagedAmount(String token) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put(Constants.HEADER_X_AUTH_HEADER, token);
+        String response = InvocationUtil.sendGetRequest(Constants.URL_IMAGE_GET_TOTAL_MANAGED_AMOUNT, header,
+                        MediaType.TEXT_PLAIN);
+        return Integer.valueOf(response);
+    }
+
 }

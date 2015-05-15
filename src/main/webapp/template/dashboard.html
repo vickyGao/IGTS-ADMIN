@@ -1,1 +1,39 @@
-<h1>首页</h1>
+<div ng-controller="DashBoardManagementController">
+    <div class="jumbotron" style="height: 200px;">
+        <h1>欢迎来到闲置物品管理系统后台管理！</h1>
+    </div>
+    <div class="col-md-2" style="padding-left: 0px; padding-right: 0px"></div>
+    <div class="col-md-8" style="padding-left: 0px; padding-right: 0px">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge">{{totalCommodityNumber}}</span>
+                总商品数
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{totalUserNumber}}</span>
+                总用户数
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{totalAdminNumber}}</span>
+                总管理员数
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{totalTagNumber}}</span>
+                总标签数
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{totalPictureNumber}}</span>
+                总图片数
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{totalManagedPictureNumber}}</span>
+                已管理图片数
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{totalPictureSize}}</span>
+                图片占用存储量
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-2" style="padding-left: 0px; padding-right: 0px"></div>
+</div>

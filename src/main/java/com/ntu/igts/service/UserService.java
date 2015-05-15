@@ -14,4 +14,6 @@ public interface UserService {
     public Pagination<User> getUserByPage(String token, Query query);
 
     public User getUserDetail(String token, String userId);
+
+    public int getTotalCount(String token);
 }

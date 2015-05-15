@@ -17,4 +17,6 @@ public interface AdminService {
     public void deleteAdmin(String token, String adminId);
 
     public Pagination<Admin> getPaginatedAdmins(String token, Query query);
+
+    public int getTotalCount(String token);
 }

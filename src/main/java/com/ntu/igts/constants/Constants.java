@@ -60,6 +60,7 @@ public class Constants {
     public static final String NEWPWD2 = "newpwd2";
     public static final String FILENAME = "filename";
     public static final String SUFFIX = "suffix";
+    public static final String COMMODITY_ID = "commodityid";
 
     /** URL Authorization */
     public static final String URL_LOGIN = "authorization/admin";
@@ -70,11 +71,13 @@ public class Constants {
     public static final String URL_ADMIN_DETAIL = "admin/detail";
     public static final String URL_ADMIN_SEARCH_TERM = "admin/search_term";
     public static final String URL_ADMIN_GET_BY_TOKEN = "admin/detail/token";
+    public static final String URL_ADMIN_TOTALCOUNT = "admin/totalcount";
 
     /** URL Commodity */
     public static final String URL_COMMODITY_SEARCH_TERM = "commodity/admin/search_term";
     public static final String URL_COMMODITY_ACTIVE_STATE = "commodity/admin/activestate";
     public static final String URL_COMMODITY_DETAIL = "commodity/admin/detail";
+    public static final String URL_COMMODITY_TOTALCOUNT = "commodity/totalcount";
 
     /** URL Custom Module */
     public static final String URL_CUSTOM_MODULE_ENTITY = "custommodule/entity";
@@ -86,7 +89,7 @@ public class Constants {
     public static final String URL_HOT_ADMIN_DETAIL = "hot/admin/detail";
 
     /** URL Message */
-    public static final String URL_MESSAGE_ENTITY = "message/entity";
+    public static final String URL_MESSAGE_ADMIN_ENTITY = "message/admin/entity";
 
     /** URL Sensitive Word */
     public static final String URL_SENSITIVE_WORD_ENTITY = "sensitiveword/entity";
@@ -101,6 +104,7 @@ public class Constants {
     /** URL Tag */
     public static final String URL_TAG_ENTITY = "tag/entity";
     public static final String URL_TAG_DETAIL = "tag/detail";
+    public static final String URL_TAG_TOTALCOUNT = "tag/totalcount";
 
     /** URL User */
     public static final String URL_USER_ENTITY = "user/entity";
@@ -108,10 +112,12 @@ public class Constants {
     public static final String URL_USER_SEARCH_TERM = "user/search_term";
     public static final String URL_USER_GET_BY_TOKEN = "user/detail/token";
     public static final String URL_USER_ADMIN_DETAIL = "user/admin/detail";
+    public static final String URL_USER_TOTALCOUNT = "user/totalcount";
 
     /** URL Image */
     public static final String URL_IMAGE_ADMIN_ENTITY = "image/admin/entity";
     public static final String URL_IMAGE_GET_ENTITY_BY_TOKEN = "image/admin/entity/token";
     public static final String URL_IMAGE_ADMIN_LOCATION = "image/admin/location";
+    public static final String URL_IMAGE_GET_TOTAL_MANAGED_AMOUNT = "image/managedamount";
 
 }

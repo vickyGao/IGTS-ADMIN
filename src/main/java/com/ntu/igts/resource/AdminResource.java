@@ -95,4 +95,11 @@ public class AdminResource {
         Pagination<Admin> pagination = adminService.getPaginatedAdmins(token, query);
         return JsonUtil.getJsonStringFromPojo(pagination);
     }
+
+    @GET
+    @Path("totalcount")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getTotalCount(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
+        return adminService.getTotalCount(token);
+    }
 }

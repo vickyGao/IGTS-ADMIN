@@ -1,4 +1,4 @@
-rootApp.controller('CommodityListController', function ($scope, CommodityService) {
+rootApp.controller('CommodityListController', function ($scope, $location, $routeParams, CommodityService) {
     CommodityService.query().success(function (data) {
         $scope.commodityList = data.queryresult.content;
         var currentPage = data.queryresult.currentpage;
@@ -14,9 +14,7 @@ rootApp.controller('CommodityListController', function ($scope, CommodityService
         });
     });
     $scope.doViewDetail = function (commodityId) {
-        CommodityService.getDetail(commodityId).success(function (data) {
-            $('#viewCommodityModal').modal('show');
-        });
+        $location.path('/commodityDetail/' + commodityId).replace();
     }
     $scope.doUnderCarriate = function (commodityId) {
         CommodityService.updateActiveState('NEGATIVE', commodityId).success(function () {

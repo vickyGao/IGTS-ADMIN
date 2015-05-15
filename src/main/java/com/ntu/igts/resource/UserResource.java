@@ -60,4 +60,11 @@ public class UserResource {
         User returnUser = userService.getUserDetail(token, userId);
         return JsonUtil.getJsonStringFromPojo(returnUser);
     }
+
+    @GET
+    @Path("totalcount")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getTotalCount(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
+        return userService.getTotalCount(token);
+    }
 }

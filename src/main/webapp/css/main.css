@@ -359,3 +359,40 @@ ul.pagination.my-pagination :hover {
 .col-for-button4 {
     width: 192px;
 }
+
+.commodity-title {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.btn-purchase {
+    font: 12px/1.5 tahoma,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif;
+    height: 45px;
+    color: white;
+    background-color: #ff631f;
+    width: 230px;
+}
+
+.btn-collection {
+    display: inline-block;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 0 15px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 2px;
+    text-decoration: none;
+    box-shadow: 1px 1px 1px rgba(55,55,55,.1);
+    outline: 0;
+    background-image: linear-gradient(to bottom,#fff,#f0f0f0);
+    overflow: hidden;
+}
+
+.commodity-tab-header {
+    width: 200px;
+    text-align: center;
+}
+
+.nav-pills > li.active > a.commodity-tab-header-bg {
+    background-color: #a7d500;
+}

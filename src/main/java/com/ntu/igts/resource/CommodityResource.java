@@ -66,4 +66,11 @@ public class CommodityResource {
         CommodityQueryResult commodityQueryResult = commodityService.getCommoditiesBySearchTerm(token, query);
         return JsonUtil.getJsonStringFromPojo(commodityQueryResult);
     }
+
+    @GET
+    @Path("totalcount")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getTotalCount(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
+        return commodityService.getTotalCount(token);
+    }
 }

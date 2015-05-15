@@ -1,0 +1,119 @@
+<div ng-controller="CommodityDetailController">
+    <div class="row my-row">
+        <ol class="breadcrumb">
+            <li><a href="#/index">首页</a></li>
+            <li class="active"><a href="#/commodityManagement">商品管理</a></li>
+            <li class="active"><a href="{{commodityDetailUrl}}">商品详情</a></li>
+        </ol>
+    </div>
+
+    <div class="row my-row" style="height: 872px;" ng-controller="ViewCommodityDetailController" ng-model="currentIndex">
+        <div data-target="#myScrollspy" data-offset="0"
+             style="overflow-y: auto; overflow-x: hidden; height:872px; width: 95%; overflow:auto; position: relative; margin: 0 auto;">
+            <div class="row my-row" style="height: 550px;">
+                <div class="col-md-8">
+                    <div style="width: 90%; margin: 0 auto;">
+                        <carousel interval="myInterval">
+                            <slide ng-repeat="cover in covers" active="cover.active" style="max-height: 500px;">
+                                <img ng-src="{{cover.image.uri}}" style="margin:auto;">
+                            </slide>
+                        </carousel>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row my-row">
+                        <div class="page-header">
+                            <h1 class="commodity-title">{{commodity.title}}</h1>
+                        </div>
+                        <div class="panel panel-default" style="border: 0px;">
+                            <!-- Table -->
+                            <table class="table">
+                                <tr>
+                                    <td>价格：</td>
+                                    <td>￥&nbsp;{{commodity.price}}</td>
+                                </tr>
+                                <tr>
+                                    <td>运费：</td>
+                                    <td>￥&nbsp;{{commodity.carriage}}</td>
+                                </tr>
+                                <tr>
+                                    <td>所在地：</td>
+                                    <td>{{commodity.district}}</td>
+                                </tr>
+                                <tr>
+                                    <td>收藏数：</td>
+                                    <td>{{commodity.collectionnumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td>发布日期：</td>
+                                    <td>{{commodity.releasedate}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row my-row">
+                        <button type="button" class="btn btn-warning btn-lg btn-purchase">
+                            立即购买
+                        </button>
+                    </div>
+                    <div class="row my-row" style="margin-top: 15px;">
+                        <button type="button" class="btn-collection">
+                            收藏
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-row" style="margin-top: 20px; margin-left: 4%;" ng-controller="CommodityTabController">
+                <div class="row my-row">
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="commodity-tab-header" ng-class="{active: isDescriptionTab}" ng-click="doDisplayDescription()">
+                            <a href="" class="commodity-tab-header-bg">宝贝介绍</a></li>
+                        <li role="presentation" class="commodity-tab-header" ng-class="{active: isMessageTab}" ng-click="doDisplayMessage()"><a
+                                href="" class="commodity-tab-header-bg">留言</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row my-row">
+                    <div class="tab-content" ng-controller="CommodityDesAndMessageTabController">
+                        <div ng-controller="CommodityDescriptionController" class="tab-pane"
+                             ng-class="{active: isDescriptionTab}">
+                            <div class="panel panel-default">
+                                <div class="panel-body" id="commodityDescPanel" data-ng-bind-html="commodityDescriptionMarked">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-controller="CommodityMessageController" class="tab-pane "
+                             ng-class="{active: isMessageTab}">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label>留言</label>
+                                            <textarea class="form-control" style="resize: none" rows="3" ng-model="messageText" ng-change="checkText()"></textarea>
+                                            <label>{{textPercent}}</label>
+                                            <button type="button" class="btn btn-default btn-xs" style="margin-top: 10px; float: right;">
+                                                评论
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <!-- Table -->
+                                <table class="table">
+                                   <tr ng-repeat="message in messageList">
+                                       <td>{{message.content}}</td>
+                                       <td ng-repeat="subMessage in message.messages">
+                                           {{subMessage.content}}
+                                       </td>
+                                   </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

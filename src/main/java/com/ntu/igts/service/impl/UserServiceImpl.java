@@ -76,4 +76,12 @@ public class UserServiceImpl implements UserService {
         return JsonUtil.getPojoFromJsonString(response, User.class);
     }
 
+    @Override
+    public int getTotalCount(String token) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put(Constants.HEADER_X_AUTH_HEADER, token);
+        String response = InvocationUtil.sendGetRequest(Constants.URL_USER_TOTALCOUNT, header, MediaType.TEXT_PLAIN);
+        return Integer.valueOf(response);
+    }
+
 }

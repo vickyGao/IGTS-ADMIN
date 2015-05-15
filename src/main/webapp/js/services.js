@@ -1,4 +1,4 @@
-var rootApp = angular.module('RootApp', ['ngCookies', 'ngRoute']);
+var rootApp = angular.module('RootApp', ['ngCookies', 'ngRoute', 'ui.bootstrap']);
 
 /* Add authHttp to send request, will add token into header automatically */
 rootApp.factory('authHttp', function ($http, $cookieStore) {
@@ -41,30 +41,22 @@ function indexRouteConfig($routeProvider) {
             templateUrl: 'template/user-management.html'
         }).
         when('/commodityManagement', {
-            controller: 'CommodityListController',
             templateUrl: 'template/commodity-management.html'
         }).
         when('/homePageManagement', {
             templateUrl: 'template/home-page-management.html'
         }).
         when('/tagManagement', {
-            controller: 'TagListController',
             templateUrl: 'template/tag-management.html'
         }).
         when('/sensitiveWordManagement', {
             templateUrl: 'template/sensitive-word-management.html'
         }).
-        when('/adminDetail', {
-            templateUrl: 'template/admin-detail.html'
-        }).
-        when('/editPassword', {
-            templateUrl: 'template/edit-password.html'
-        }).
         when('/upload', {
             templateUrl: 'template/image-management.html'
         }).
-        when('/backup', {
-            templateUrl: 'template/backup.html'
+        when('/commodityDetail/:commodityId', {
+            templateUrl: 'template/commodity-detail-management.html'
         })
 }
 
@@ -157,6 +149,9 @@ rootApp.factory('TagService', function (authHttp) {
         delete: function (tagId) {
             var path = 'api/tag/entity/' + tagId;
             return authHttp.delete(path);
+        },
+        getTotalCount: function () {
+            return authHttp.get('api/tag/totalcount');
         }
     };
 });
@@ -174,6 +169,9 @@ rootApp.factory('CommodityService', function (authHttp) {
         updateActiveState: function (requestState, commodityId) {
             var path = 'api/commodity/activestate/' + requestState + '/' + commodityId;
             return authHttp.put(path);
+        },
+        getTotalCount: function () {
+            return authHttp.get('api/commodity/totalcount');
         }
     }
 });
@@ -200,6 +198,9 @@ rootApp.factory('AdminService', function (authHttp) {
         query: function (conditions) {
             var config = {params: conditions};
             return authHttp.get('api/admin/search_term', config);
+        },
+        getTotalCount: function () {
+            return authHttp.get('api/admin/totalcount');
         }
     }
 });
@@ -237,6 +238,9 @@ rootApp.factory('UserService', function (authHttp) {
         query: function (conditions) {
             var config = {params: conditions};
             return authHttp.get('api/user/search_term', config);
+        },
+        getTotalCount: function () {
+            return authHttp.get('api/user/totalcount');
         }
     }
 });
@@ -276,6 +280,68 @@ rootApp.factory('ImageService', function (authHttp) {
         },
         getByToken: function () {
             return authHttp.get('api/image/entity');
+        },
+        getTotalAmount: function () {
+            return authHttp.get('api/image/amount');
+        },
+        getTotalManagedAmount: function () {
+            return authHttp.get('api/image/managedamount');
+        },
+        getTotalPictureSize: function () {
+            return authHttp.get('api/image/size');
+        }
+    }
+});
+
+rootApp.factory('MessageService', function (authHttp) {
+    return {
+        getByCommodityId: function (conditions) {
+            var config = {params: conditions};
+            return authHttp.get('api/message/entity', config);
+        }
+    }
+});
+
+rootApp.factory('SliceService', function (authHttp) {
+    return {
+        create: function (slice) {
+            return authHttp.post('api/slice/entity', slice);
+        },
+        update: function (slice) {
+            return authHttp.put('api/slice/entity', slice);
+        },
+        delete: function (sliceId) {
+            var path = 'api/slice/entity/' + sliceId;
+            return authHttp.delete(path);
+        },
+        getDetailById: function (sliceId) {
+            var path = 'api/slice/detail/' + sliceId;
+            return authHttp.get(path);
+        },
+        getAll: function () {
+            return authHttp.get('api/slice/detail');
+        }
+    }
+});
+
+rootApp.factory('HotService', function (authHttp) {
+    return {
+        create: function (hot) {
+            return authHttp.post('api/hot/entity', slice);
+        },
+        update: function (hot) {
+            return authHttp.put('api/hot/entity', slice);
+        },
+        delete: function (hotId) {
+            var path = 'api/hot/entity/' + hotId;
+            return authHttp.delete(path);
+        },
+        getById: function (hotId) {
+            var path = 'api/hot/entity/' + hotId;
+            return authHttp.get(path);
+        },
+        getAll: function () {
+            return authHttp.get('api/hot/detail');
         }
     }
 });

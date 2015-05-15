@@ -18,6 +18,10 @@ public class Slice extends BaseModel implements Serializable {
     private int displaySequence;
     @JsonProperty("commodityid")
     private String commodityId;
+    @JsonProperty("image")
+    private Image image;
+    @JsonProperty("commodity")
+    private Commodity commodity;
 
     public String getImageId() {
         return imageId;
@@ -49,6 +53,22 @@ public class Slice extends BaseModel implements Serializable {
 
     public void setCommodityId(String commodityId) {
         this.commodityId = commodityId;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Commodity getCommodity() {
+        return commodity;
+    }
+
+    public void setCommodity(Commodity commodity) {
+        this.commodity = commodity;
     }
 
 }

@@ -86,4 +86,13 @@ public class CommodityServiceImpl implements CommodityService {
         return JsonUtil.getPojoFromJsonString(response, CommodityQueryResult.class);
     }
 
+    @Override
+    public int getTotalCount(String token) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put(Constants.HEADER_X_AUTH_HEADER, token);
+        String response = InvocationUtil.sendGetRequest(Constants.URL_COMMODITY_TOTALCOUNT, header,
+                        MediaType.TEXT_PLAIN);
+        return Integer.valueOf(response);
+    }
+
 }

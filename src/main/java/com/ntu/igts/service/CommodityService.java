@@ -13,4 +13,6 @@ public interface CommodityService {
 
     public CommodityQueryResult getCommoditiesBySearchTerm(String token, Query query);
 
+    public int getTotalCount(String token);
+
 }

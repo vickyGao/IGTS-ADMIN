@@ -1,1 +1,89 @@
-<h1>主页定制页面</h1>
+<div ng-controller="HomeManagementController">
+    <div class="row my-row">
+        <ol class="breadcrumb">
+            <li><a href="#/index">首页</a></li>
+            <li class="active"><a href="#/homePageManagement">首页定制</a></li>
+        </ol>
+    </div>
+    <div class="row my-row"
+         style="overflow-y: auto; overflow-x: hidden; height:873px; width: 95%; overflow:auto; position: relative; margin: 0 auto;"
+         ng-controller="TabController">
+        <div class="row my-row">
+            <ul class="nav nav-pills">
+                <li role="presentation" ng-class="{active: isSliceCustomizeTab}" ng-click="doDisplaySliceCustomize()"><a
+                        href="">滑块定义</a></li>
+                <li role="presentation" ng-class="{active: isHotCustomizeTab}" ng-click="doDisplayHotCustomize()"><a
+                        href="">热门商品定制</a></li>
+                <li role="presentation" ng-class="{active: isCustomModelCustomizeTab}" style="display: None;"
+                    ng-click="doDisplayCustomModelCustomize()"><a href="">自定义模块定制</a></li>
+            </ul>
+        </div>
+        <div class="row my-row">
+            <div class="tab-content" ng-controller="CustomizeController">
+                <div ng-controller="SliceCustomizeController" class="tab-pane "
+                     ng-class="{active: isSliceCustomizeTab}">
+                    <div style="width: 90%; margin: 0 auto; margin-top: 20px;">
+                        <carousel interval="myInterval">
+                            <slide ng-repeat="slice in slices" active="slice.active" style="max-height: 500px;">
+                                <img ng-src="{{slice.image.uri}}" style="margin:auto; cursor: pointer"
+                                     ng-click="doViewCommodityDetail(slice.commodityid)">
+                            </slide>
+                        </carousel>
+                    </div>
+                </div>
+                <div ng-controller="HotCustomizeController" class="tab-pane " ng-class="{active: isHotCustomizeTab}">
+                    <div class="row my-row" style="margin-top: 20px; margin-bottom: 20px;">
+                        <button type="button" class="btn btn-success btn-lg" ng-click="doCreateHot()">
+                            添加热门商品
+                        </button>
+                    </div>
+                    <div data-target="#myScrollspy" data-offset="0"
+                         style="overflow-y: auto; overflow-x: hidden; height:762px; width: 95%; overflow:auto; position: relative; margin: 0 auto;">
+                        <div class="panel panel-default">
+                            <!-- Table -->
+                            <table class="table">
+                                <tr>
+                                    <td ng-repeat="hot in hotList">
+                                        <img src="{{hot.image.uri}}" alt="{{hot.image.title}}"
+                                             style="max-width: 410px; max-height: 256px; cursor: pointer;"
+                                             ng-click="doViewCommodityDetail(hot.imageid)">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td ng-repeat="hot in hotList">
+                                        <a href="" class="btn btn-danger" role="button"
+                                           ng-click="doDelete(hot.id)"><span
+                                                class="glyphicon glyphicon-trash"></span></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div ng-controller="CustomModelCustomizeController" class="tab-pane "
+                     ng-class="{active: isCustomModelCustomizeTab}"><span>待完成</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="createHotCommodityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true"
+         ng-controller="CreateHotCommodityModalController">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">创建热门商品</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+</div>

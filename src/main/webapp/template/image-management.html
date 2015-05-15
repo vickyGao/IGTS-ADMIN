@@ -1,5 +1,11 @@
 <div ng-controller="ImageManagementController">
     <div class="row my-row">
+        <ol class="breadcrumb">
+            <li><a href="#/index">首页</a></li>
+            <li class="active"><a href="#/upload">上传功能测试</a></li>
+        </ol>
+    </div>
+    <div class="row my-row">
         <div class="col-md-4">
             <!-- D&D Zone-->
             <div id="drag-and-drop-zone" class="uploader">
@@ -29,12 +35,11 @@
     </div>
     <div class="row my-row" ng-controller="ImageListController">
         <div data-target="#myScrollspy" data-offset="0"
-             style="overflow-y: auto; overflow-x: hidden; height:461px; width: 95%; overflow:auto; position: relative; margin: 0 auto;">
+             style="overflow-y: auto; overflow-x: hidden; height:631px; width: 95%; overflow:auto; position: relative; margin: 0 auto;">
             <div class="row">
                 <div class="col-sm-6 col-md-4" ng-repeat="image in imageList">
                     <div class="thumbnail">
-                        <!--<img src="{{image.uri}}" alt="image.title">-->
-                        <img src="{{image.uri}}" alt="image.title">
+                        <img src="{{image.uri}}" alt="{{image.title}}">
 
                         <div class="caption">
                             <h3>{{image.title}}</h3>
@@ -86,8 +91,7 @@
                         <div class="form-group">
                             <div class="col-sm-6 col-md-4">
                                 <div class="thumbnail">
-                                    <!--<img src="{{image.uri}}" alt="image.title">-->
-                                    <img src="{{image.uri}}" alt="image.title">
+                                    <img src="{{image.uri}}" alt="{{image.title}}">
                                 </div>
                             </div>
                         </div>
@@ -129,8 +133,7 @@
                         <div class="form-group">
                             <div class="col-sm-6 col-md-4">
                                 <div class="thumbnail">
-                                    <!--<img src="{{image.uri}}" alt="image.title">-->
-                                    <img src="{{image.uri}}" alt="image.title">
+                                    <img src="{{image.uri}}" alt="{{image.title}}">
                                 </div>
                             </div>
                         </div>
