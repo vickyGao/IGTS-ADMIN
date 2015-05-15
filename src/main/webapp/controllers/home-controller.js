@@ -9,7 +9,7 @@ rootApp.controller('HomeManagementController', function ($scope) {
         $scope.$broadcast('event:DisplayCustomModelCustomize');
     });
     $scope.$on('event:FlushHotCommoditiesRequest', function () {
-        $scope.$broadcast('event:FlushHotCommoditiesRequest');
+        $scope.$broadcast('event:FlushHotCommodities');
     });
     $scope.$on('event:showCreateHotCommodityModalRequest', function () {
         $scope.$broadcast('event:showCreateHotCommodityModal');
@@ -77,6 +77,9 @@ rootApp.controller('HotCustomizeController', function ($scope, $location, HotSer
             }
         });
     }
+    $scope.$on('event:FlushHotCommodities', function (data) {
+        $scope.hotList = data.hotcommodities;
+    });
 });
 
 rootApp.controller('CustomModelCustomizeController', function ($scope) {

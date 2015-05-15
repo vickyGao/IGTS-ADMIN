@@ -19,7 +19,7 @@ rootApp.controller('TagListController', function ($scope, TagService) {
             }
         });
     }
-    $scope.$on('event:flushList', function () {
+    $scope.$on('event:flushTagList', function () {
         TagService.listDetail().success(function (data) {
             $scope.tags = data.tags;
         });
