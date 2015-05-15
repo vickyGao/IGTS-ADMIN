@@ -189,4 +189,11 @@ public class ImageResource {
         String path = imageService.getStoragePath(token);
         return FileUtil.getFolderSize(path);
     }
+
+    @GET
+    @Path("managedimages")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllManagedImages(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
+        return JsonUtil.getJsonStringFromPojo(imageService.getAll(token));
+    }
 }

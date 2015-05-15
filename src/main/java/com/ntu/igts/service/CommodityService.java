@@ -2,6 +2,7 @@ package com.ntu.igts.service;
 
 import com.ntu.igts.enums.ActiveStateEnum;
 import com.ntu.igts.model.Commodity;
+import com.ntu.igts.model.container.CommodityList;
 import com.ntu.igts.model.container.CommodityQueryResult;
 import com.ntu.igts.model.container.Query;
 
@@ -14,5 +15,7 @@ public interface CommodityService {
     public CommodityQueryResult getCommoditiesBySearchTerm(String token, Query query);
 
     public int getTotalCount(String token);
+
+    public CommodityList getAll(String token);
 
 }

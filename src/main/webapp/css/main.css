@@ -396,3 +396,13 @@ ul.pagination.my-pagination :hover {
 .nav-pills > li.active > a.commodity-tab-header-bg {
     background-color: #a7d500;
 }
+
+.small-picture {
+    width: 150px;
+    height: 120px;
+}
+
+.middle-picture {
+    width: 480px;
+    height: 120px;
+}

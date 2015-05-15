@@ -20,4 +20,6 @@ public interface ImageService {
     public Image getImageById(String token, String imageId);
 
     public int getTotalManagedAmount(String token);
+
+    public ImageList getAll(String token);
 }

@@ -172,6 +172,9 @@ rootApp.factory('CommodityService', function (authHttp) {
         },
         getTotalCount: function () {
             return authHttp.get('api/commodity/totalcount');
+        },
+        getAll: function () {
+            return authHttp.get('api/commodity/entity/all');
         }
     }
 });
@@ -289,6 +292,9 @@ rootApp.factory('ImageService', function (authHttp) {
         },
         getTotalPictureSize: function () {
             return authHttp.get('api/image/size');
+        },
+        getAll: function () {
+            return authHttp.get('api/image/managedimages');
         }
     }
 });
@@ -327,10 +333,10 @@ rootApp.factory('SliceService', function (authHttp) {
 rootApp.factory('HotService', function (authHttp) {
     return {
         create: function (hot) {
-            return authHttp.post('api/hot/entity', slice);
+            return authHttp.post('api/hot/entity', hot);
         },
         update: function (hot) {
-            return authHttp.put('api/hot/entity', slice);
+            return authHttp.put('api/hot/entity', hot);
         },
         delete: function (hotId) {
             var path = 'api/hot/entity/' + hotId;

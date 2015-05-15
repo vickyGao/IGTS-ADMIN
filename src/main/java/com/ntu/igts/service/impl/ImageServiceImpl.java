@@ -93,4 +93,13 @@ public class ImageServiceImpl implements ImageService {
         return Integer.valueOf(response);
     }
 
+    @Override
+    public ImageList getAll(String token) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put(Constants.HEADER_X_AUTH_HEADER, token);
+        String response = InvocationUtil.sendGetRequest(Constants.URL_IMAGE_GET_TOTAL_MANAGED_IMAGES, header,
+                        MediaType.APPLICATION_JSON);
+        return JsonUtil.getPojoFromJsonString(response, ImageList.class);
+    }
+
 }

@@ -73,4 +73,11 @@ public class CommodityResource {
     public int getTotalCount(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
         return commodityService.getTotalCount(token);
     }
+
+    @GET
+    @Path("entity/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllCommodities(@HeaderParam(Constants.HEADER_X_AUTH_HEADER) String token) {
+        return JsonUtil.getJsonStringFromPojo(commodityService.getAll(token));
+    }
 }

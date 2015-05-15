@@ -78,6 +78,7 @@ public class Constants {
     public static final String URL_COMMODITY_ACTIVE_STATE = "commodity/admin/activestate";
     public static final String URL_COMMODITY_DETAIL = "commodity/admin/detail";
     public static final String URL_COMMODITY_TOTALCOUNT = "commodity/totalcount";
+    public static final String URL_COMMODITY_GET_ALL = "commodity/entity/all";
 
     /** URL Custom Module */
     public static final String URL_CUSTOM_MODULE_ENTITY = "custommodule/entity";
@@ -119,5 +120,6 @@ public class Constants {
     public static final String URL_IMAGE_GET_ENTITY_BY_TOKEN = "image/admin/entity/token";
     public static final String URL_IMAGE_ADMIN_LOCATION = "image/admin/location";
     public static final String URL_IMAGE_GET_TOTAL_MANAGED_AMOUNT = "image/managedamount";
+    public static final String URL_IMAGE_GET_TOTAL_MANAGED_IMAGES = "image/managedimages";
 
 }

@@ -9,10 +9,20 @@ rootApp.controller('HomeManagementController', function ($scope) {
         $scope.$broadcast('event:DisplayCustomModelCustomize');
     });
     $scope.$on('event:FlushHotCommoditiesRequest', function () {
+        console.log('get flush hot request');
         $scope.$broadcast('event:FlushHotCommodities');
     });
     $scope.$on('event:showCreateHotCommodityModalRequest', function () {
         $scope.$broadcast('event:showCreateHotCommodityModal');
+    });
+    $scope.$on('event:ShowCreateSliceModalRequest', function () {
+        $scope.$broadcast('event:ShowCreateSliceModal');
+    });
+    $scope.$on('event:FlushSlicesRequest', function () {
+        $scope.$broadcast('event:FlushSlices');
+    });
+    $scope.$on('event:ShowDeleteSliceModalRequest', function () {
+        $scope.$broadcast('event:ShowDeleteSliceModal');
     });
 });
 
@@ -51,6 +61,18 @@ rootApp.controller('SliceCustomizeController', function ($scope, $location, Slic
     $scope.doViewCommodityDetail = function (commodityId) {
         $location.path('/commodityDetail/' + commodityId).replace();
     }
+    $scope.doCreateSlice = function () {
+        $scope.$emit('event:ShowCreateSliceModalRequest');
+    }
+    $scope.$on('event:FlushSlices', function () {
+        SliceService.getAll().success(function (data) {
+            $scope.myInterval = 5000;
+            $scope.slices = data.slices;
+        });
+    });
+    $scope.doDeleteSlice = function () {
+        $scope.$emit('event:ShowDeleteSliceModalRequest');
+    }
 });
 
 rootApp.controller('HotCustomizeController', function ($scope, $location, HotService) {
@@ -77,8 +99,10 @@ rootApp.controller('HotCustomizeController', function ($scope, $location, HotSer
             }
         });
     }
-    $scope.$on('event:FlushHotCommodities', function (data) {
-        $scope.hotList = data.hotcommodities;
+    $scope.$on('event:FlushHotCommodities', function () {
+        HotService.getAll().success(function (data) {
+            $scope.hotList = data.hotcommodities;
+        });
     });
 });
 
@@ -104,10 +128,104 @@ rootApp.controller('CustomizeController', function ($scope) {
     });
 });
 
-rootApp.controller('CreateHotCommodityModalController', function ($scope) {
-    $scope.$on('event:showCreateHotCommodityModal', function (event, hotId) {
-        $('#createHotCommodityModal').modal("show");
-    })
+rootApp.controller('CreateHotCommodityModalController', function ($scope, ImageService, CommodityService, HotService) {
+    $scope.$on('event:showCreateHotCommodityModal', function () {
+        ImageService.getAll().success(function (data) {
+            $scope.images = data.images;
+            CommodityService.getAll().success(function (data) {
+                $scope.commodityList = data.commodities;
+                $scope.selectedImage = null;
+                $scope.selectedCommodity = null;
+                $scope.sliceDesc = null;
+                $('#createHotCommodityModal').modal("show");
+            });
+        });
+    });
+    $scope.doSelect = function (image) {
+        $scope.selectedImage = image;
+    }
+    $scope.doSelectCommodity = function (commodity) {
+        $scope.selectedCommodity = commodity;
+    }
+    $scope.doSubmit = function () {
+        var imageId = $scope.selectedImage.id;
+        var commodityId = $scope.selectedCommodity.id;
+        var desc = $scope.sliceDesc;
+        var hotBody = {
+            imageid: imageId,
+            commodityid: commodityId,
+            description: desc
+        }
+        var hot = {
+            hot: hotBody
+        }
+        HotService.create(hot).success(function () {
+            $('#createHotCommodityModal').modal("hide");
+            $scope.$emit('event:FlushHotCommoditiesRequest');
+        });
+    }
+});
+
+rootApp.controller('CreateSliceModalController', function ($scope, ImageService, CommodityService, SliceService) {
+    $scope.$on('event:ShowCreateSliceModal', function () {
+        ImageService.getAll().success(function (data) {
+            $scope.images = data.images;
+            CommodityService.getAll().success(function (data) {
+                $scope.commodityList = data.commodities;
+                $scope.selectedImage = null;
+                $scope.selectedCommodity = null;
+                $scope.sliceDesc = null;
+                $('#createSliceModal').modal("show");
+            });
+        });
+    });
+    $scope.doSelect = function (image) {
+        $scope.selectedImage = image;
+    }
+    $scope.doSelectCommodity = function (commodity) {
+        $scope.selectedCommodity = commodity;
+    }
+    $scope.doSubmit = function () {
+        var imageId = $scope.selectedImage.id;
+        var commodityId = $scope.selectedCommodity.id;
+        var desc = $scope.sliceDesc;
+        var sliceBody = {
+            imageid: imageId,
+            commodityid: commodityId,
+            description: desc
+        }
+        var slice = {
+            slice: sliceBody
+        }
+        SliceService.create(slice).success(function () {
+            $('#createSliceModal').modal("hide");
+            $scope.$emit('event:FlushSlicesRequest');
+        });
+    }
+});
+
+rootApp.controller('DeleteSliceModalController', function ($scope, SliceService) {
+    $scope.$on('event:ShowDeleteSliceModal', function () {
+        SliceService.getAll().success(function (data) {
+            $scope.sliceList = data.slices;
+            $('#deleteSliceModal').modal("show");
+        });
+    });
+    $scope.doDeleteSlice = function (sliceId) {
+        showConfirmDialog("确认删除？", {
+            ok: function (dialog) {
+                dialog.title("提交中...");
+                SliceService.delete(sliceId).success(function () {
+                    $('#deleteSliceModal').modal("hide");
+                    $scope.$emit('event:FlushSlicesRequest');
+                });
+                return true;
+            },
+            cancel: function () {
+                return false;
+            }
+        });
+    }
 });
 
 function updateTabSelection(isSliceCustomizeTabFlag, isHotCustomizeTabFlag, isCustomModelCustomizeTabFlag) {

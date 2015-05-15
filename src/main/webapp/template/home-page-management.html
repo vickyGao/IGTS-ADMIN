@@ -1,89 +1,262 @@
 <div ng-controller="HomeManagementController">
+<div class="row my-row">
+    <ol class="breadcrumb">
+        <li><a href="#/index">首页</a></li>
+        <li class="active"><a href="#/homePageManagement">首页定制</a></li>
+    </ol>
+</div>
+<div class="row my-row"
+     style="overflow-y: auto; overflow-x: hidden; height:873px; width: 95%; overflow:auto; position: relative; margin: 0 auto;"
+     ng-controller="TabController">
     <div class="row my-row">
-        <ol class="breadcrumb">
-            <li><a href="#/index">首页</a></li>
-            <li class="active"><a href="#/homePageManagement">首页定制</a></li>
-        </ol>
+        <ul class="nav nav-pills">
+            <li role="presentation" ng-class="{active: isSliceCustomizeTab}" ng-click="doDisplaySliceCustomize()"><a
+                    href="">滑块定义</a></li>
+            <li role="presentation" ng-class="{active: isHotCustomizeTab}" ng-click="doDisplayHotCustomize()"><a
+                    href="">热门商品定制</a></li>
+            <li role="presentation" ng-class="{active: isCustomModelCustomizeTab}" style="display: None;"
+                ng-click="doDisplayCustomModelCustomize()"><a href="">自定义模块定制</a></li>
+        </ul>
     </div>
-    <div class="row my-row"
-         style="overflow-y: auto; overflow-x: hidden; height:873px; width: 95%; overflow:auto; position: relative; margin: 0 auto;"
-         ng-controller="TabController">
-        <div class="row my-row">
-            <ul class="nav nav-pills">
-                <li role="presentation" ng-class="{active: isSliceCustomizeTab}" ng-click="doDisplaySliceCustomize()"><a
-                        href="">滑块定义</a></li>
-                <li role="presentation" ng-class="{active: isHotCustomizeTab}" ng-click="doDisplayHotCustomize()"><a
-                        href="">热门商品定制</a></li>
-                <li role="presentation" ng-class="{active: isCustomModelCustomizeTab}" style="display: None;"
-                    ng-click="doDisplayCustomModelCustomize()"><a href="">自定义模块定制</a></li>
-            </ul>
-        </div>
-        <div class="row my-row">
-            <div class="tab-content" ng-controller="CustomizeController">
-                <div ng-controller="SliceCustomizeController" class="tab-pane "
-                     ng-class="{active: isSliceCustomizeTab}">
-                    <div style="width: 90%; margin: 0 auto; margin-top: 20px;">
-                        <carousel interval="myInterval">
-                            <slide ng-repeat="slice in slices" active="slice.active" style="max-height: 500px;">
-                                <img ng-src="{{slice.image.uri}}" style="margin:auto; cursor: pointer"
-                                     ng-click="doViewCommodityDetail(slice.commodityid)">
-                            </slide>
-                        </carousel>
+    <div class="row my-row">
+        <div class="tab-content" ng-controller="CustomizeController">
+            <div ng-controller="SliceCustomizeController" class="tab-pane "
+                 ng-class="{active: isSliceCustomizeTab}">
+                <div style="width: 90%; margin: 0 auto; margin-top: 20px;">
+                    <carousel interval="myInterval">
+                        <slide ng-repeat="slice in slices" active="slice.active" style="max-height: 500px;">
+                            <img ng-src="{{slice.image.uri}}" style="margin:auto; cursor: pointer"
+                                 ng-click="doViewCommodityDetail(slice.commodityid)">
+                        </slide>
+                    </carousel>
+                </div>
+                <div class="row my-row" style="margin-top: 20px; margin-bottom: 20px;">
+                    <button type="button" class="btn btn-success btn-lg" ng-click="doCreateSlice()">
+                        添加滑块
+                    </button>
+                    <button type="button" class="btn btn-danger btn-lg" ng-click="doDeleteSlice()">
+                        删除滑块
+                    </button>
+                </div>
+            </div>
+            <div ng-controller="HotCustomizeController" class="tab-pane " ng-class="{active: isHotCustomizeTab}">
+                <div class="row my-row" style="margin-top: 20px; margin-bottom: 20px;">
+                    <button type="button" class="btn btn-success btn-lg" ng-click="doCreateHot()">
+                        添加热门商品
+                    </button>
+                </div>
+                <div data-target="#myScrollspy" data-offset="0"
+                     style="overflow-y: auto; overflow-x: hidden; height:762px; width: 95%; overflow:auto; position: relative; margin: 0 auto;">
+                    <div class="panel panel-default">
+                        <!-- Table -->
+                        <table class="table">
+                            <tr>
+                                <td ng-repeat="hot in hotList">
+                                    <img src="{{hot.image.uri}}" alt="{{hot.image.title}}"
+                                         style="max-width: 410px; max-height: 256px; cursor: pointer;"
+                                         ng-click="doViewCommodityDetail(hot.imageid)">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ng-repeat="hot in hotList">
+                                    <a href="" class="btn btn-danger" role="button"
+                                       ng-click="doDelete(hot.id)"><span
+                                            class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-                <div ng-controller="HotCustomizeController" class="tab-pane " ng-class="{active: isHotCustomizeTab}">
-                    <div class="row my-row" style="margin-top: 20px; margin-bottom: 20px;">
-                        <button type="button" class="btn btn-success btn-lg" ng-click="doCreateHot()">
-                            添加热门商品
-                        </button>
+            </div>
+            <div ng-controller="CustomModelCustomizeController" class="tab-pane "
+                 ng-class="{active: isCustomModelCustomizeTab}"><span>待完成</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="createSliceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true"
+     ng-controller="CreateSliceModalController">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">创建轮播</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="text" class="form-control" style="width: 183px;margin: 0 auto;" placeholder="请输入商品标题"
+                           ng-model="commoditySearchTerm">
+                </div>
+                <div class="row">
+                    <div class="col-md-4" style="overflow-y: auto; overflow-x: hidden; height:500px; margin-top: 10px;">
+                        <table class="table">
+                            <tr ng-repeat="image in images">
+                                <td>
+                                    <img class="media-object small-picture" style="cursor: pointer" src="{{image.uri}}"
+                                         alt="{{image.title}}" ng-click="doSelect(image)">
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                    <div data-target="#myScrollspy" data-offset="0"
-                         style="overflow-y: auto; overflow-x: hidden; height:762px; width: 95%; overflow:auto; position: relative; margin: 0 auto;">
-                        <div class="panel panel-default">
-                            <!-- Table -->
-                            <table class="table">
-                                <tr>
-                                    <td ng-repeat="hot in hotList">
-                                        <img src="{{hot.image.uri}}" alt="{{hot.image.title}}"
-                                             style="max-width: 410px; max-height: 256px; cursor: pointer;"
-                                             ng-click="doViewCommodityDetail(hot.imageid)">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td ng-repeat="hot in hotList">
-                                        <a href="" class="btn btn-danger" role="button"
-                                           ng-click="doDelete(hot.id)"><span
-                                                class="glyphicon glyphicon-trash"></span></a>
-                                    </td>
-                                </tr>
-                            </table>
+                    <div class="col-md-4" style="overflow-y: auto; overflow-x: hidden; height:500px; margin-top: 10px;">
+                        <table class="table">
+                            <tr ng-repeat="commodity in commodityList | filter: commoditySearchTerm">
+                                <td>
+                                    <span style="cursor: pointer" ng-click="doSelectCommodity(commodity)">{{commodity.title}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4" style="margin-top: 10px;">
+                        <div class="form-group">
+                            <label class="control-label">已选图片</label>
+
+                            <div class="col-sm-10">
+                                <img class="media-object small-picture" src="{{selectedImage.uri}}"
+                                     alt="{{selectedImage.title}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">已选商品</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="selectedCommodity.title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">描述</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="sliceDesc">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div ng-controller="CustomModelCustomizeController" class="tab-pane "
-                     ng-class="{active: isCustomModelCustomizeTab}"><span>待完成</span></div>
+                <div class="row">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" ng-click="doSubmit()">提交</button>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- /.modal-content -->
     </div>
+</div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="createHotCommodityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true"
-         ng-controller="CreateHotCommodityModalController">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">创建热门商品</h4>
+<!-- Modal -->
+<div class="modal fade" id="createHotCommodityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true"
+     ng-controller="CreateHotCommodityModalController">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">创建热门商品</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="text" class="form-control" style="width: 183px;margin: 0 auto;" placeholder="请输入商品标题"
+                           ng-model="commoditySearchTerm">
                 </div>
-                <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4" style="overflow-y: auto; overflow-x: hidden; height:500px; margin-top: 10px;">
+                        <table class="table">
+                            <tr ng-repeat="image in images">
+                                <td>
+                                    <img class="media-object small-picture" style="cursor: pointer" src="{{image.uri}}"
+                                         alt="{{image.title}}" ng-click="doSelect(image)">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4" style="overflow-y: auto; overflow-x: hidden; height:500px; margin-top: 10px;">
+                        <table class="table">
+                            <tr ng-repeat="commodity in commodityList | filter: commoditySearchTerm">
+                                <td>
+                                    <span style="cursor: pointer" ng-click="doSelectCommodity(commodity)">{{commodity.title}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4" style="margin-top: 10px;">
+                        <div class="form-group">
+                            <label class="control-label">已选图片</label>
 
+                            <div class="col-sm-10">
+                                <img class="media-object small-picture" src="{{selectedImage.uri}}"
+                                     alt="{{selectedImage.title}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">已选商品</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="selectedCommodity.title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">描述</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="sliceDesc">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" ng-click="doSubmit()">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteSliceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true"
+     ng-controller="DeleteSliceModalController">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">删除滑块</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" style="overflow-y: auto; overflow-x: hidden; height:500px; margin-top: 10px;">
+                        <table class="table">
+                            <tr ng-repeat="slice in sliceList">
+                                <td>
+                                    <img class="media-object middle-picture" style="cursor: pointer"
+                                         src="{{slice.image.uri}}"
+                                         alt="{{slice.image.title}}" ng-click="doSelect(slice)">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-lg" ng-click="doDeleteSlice(slice.id)">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
     </div>
+    <!-- /.modal-content -->
+</div>
+</div>
+
 </div>

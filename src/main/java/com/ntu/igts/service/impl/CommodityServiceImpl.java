@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ntu.igts.constants.Constants;
 import com.ntu.igts.enums.ActiveStateEnum;
 import com.ntu.igts.model.Commodity;
+import com.ntu.igts.model.container.CommodityList;
 import com.ntu.igts.model.container.CommodityQueryResult;
 import com.ntu.igts.model.container.Query;
 import com.ntu.igts.service.CommodityService;
@@ -93,6 +94,15 @@ public class CommodityServiceImpl implements CommodityService {
         String response = InvocationUtil.sendGetRequest(Constants.URL_COMMODITY_TOTALCOUNT, header,
                         MediaType.TEXT_PLAIN);
         return Integer.valueOf(response);
+    }
+
+    @Override
+    public CommodityList getAll(String token) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put(Constants.HEADER_X_AUTH_HEADER, token);
+        String response = InvocationUtil.sendGetRequest(Constants.URL_COMMODITY_GET_ALL, header,
+                        MediaType.APPLICATION_JSON);
+        return JsonUtil.getPojoFromJsonString(response, CommodityList.class);
     }
 
 }
