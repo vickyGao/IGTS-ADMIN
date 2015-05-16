@@ -57,7 +57,7 @@ function indexRouteConfig($routeProvider) {
         }).
         when('/commodityDetail/:commodityId', {
             templateUrl: 'template/commodity-detail-management.html'
-        })
+        });
 }
 
 rootApp.config(indexRouteConfig);
