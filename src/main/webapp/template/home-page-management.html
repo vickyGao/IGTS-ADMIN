@@ -14,7 +14,7 @@
                     href="">滑块定义</a></li>
             <li role="presentation" ng-class="{active: isHotCustomizeTab}" ng-click="doDisplayHotCustomize()"><a
                     href="">热门商品定制</a></li>
-            <li role="presentation" ng-class="{active: isCustomModelCustomizeTab}" style="display: None;"
+            <li role="presentation" ng-class="{active: isCustomModelCustomizeTab}"
                 ng-click="doDisplayCustomModelCustomize()"><a href="">自定义模块定制</a></li>
         </ul>
     </div>
@@ -69,7 +69,37 @@
                 </div>
             </div>
             <div ng-controller="CustomModelCustomizeController" class="tab-pane "
-                 ng-class="{active: isCustomModelCustomizeTab}"><span>待完成</span></div>
+                 ng-class="{active: isCustomModelCustomizeTab}">
+                <div class="row my-row" style="overflow-y: auto; overflow-x: hidden; height:500px; margin-top: 10px;">
+                    <table class="table">
+                        <tr>
+                            <th>模块名</th>
+                            <th>展示顺序</th>
+                            <th>关键字</th>
+                            <th>展示数量</th>
+                            <th class="col-for-button3">操作</th>
+                        </tr>
+                        <tr ng-repeat="custommodule in custommodules">
+                            <td>{{custommodule.title}}</td>
+                            <td>{{custommodule.displaysequence}}</td>
+                            <td>{{custommodule.keyword}}</td>
+                            <td>{{custommodule.displayamount}}</td>
+                            <td>
+                                <button type="button" class="btn btn-warning" ng-click="doUpdate(custommodule.id)"><span
+                                        class="glyphicon glyphicon-pencil"></span></button>
+                                <button type="button" class="btn btn-danger" ng-click="doDelete(custommodule.id)"><span
+                                        class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row my-row">
+                    <button type="button" class="btn btn-success btn-lg" ng-click="doCreateCustommodule()">
+                        添加滑块
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -230,7 +260,8 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12" style="overflow-y: auto; overflow-x: hidden; height:500px; margin-top: 10px;">
+                    <div class="col-md-12"
+                         style="overflow-y: auto; overflow-x: hidden; height:500px; margin-top: 10px;">
                         <table class="table">
                             <tr ng-repeat="slice in sliceList">
                                 <td>
@@ -239,7 +270,8 @@
                                          alt="{{slice.image.title}}" ng-click="doSelect(slice)">
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-lg" ng-click="doDeleteSlice(slice.id)">
+                                    <button type="button" class="btn btn-danger btn-lg"
+                                            ng-click="doDeleteSlice(slice.id)">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </td>
@@ -256,7 +288,102 @@
         </div>
     </div>
     <!-- /.modal-content -->
-</div>
-</div>
+    </div>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="createCustomModuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true"
+         ng-controller="CreateCustomModuleModalController">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">创建自定义模块</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" action="#">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">模块名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="custommodule.title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">展示顺序</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="custommodule.displaysequence">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">关键字</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="custommodule.keyword">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">展示数量</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="custommodule.displayamount">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="doSubmit()">提交</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="updateCustomModuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true"
+         ng-controller="UpdateCustomModuleModalController">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">修改自定义模块</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" action="#">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">模块名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="custommodule.title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">展示顺序</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="custommodule.displaysequence">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">关键字</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="custommodule.keyword">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">展示数量</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-input" ng-model="custommodule.displayamount">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="btnSubmitStudent" ng-click="doSubmit()">提交</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+</div>
 </div>

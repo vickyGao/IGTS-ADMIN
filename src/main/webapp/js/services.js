@@ -351,3 +351,25 @@ rootApp.factory('HotService', function (authHttp) {
         }
     }
 });
+
+rootApp.factory('CustomModuleService', function (authHttp) {
+    return {
+        create: function (customModule) {
+            return authHttp.post('api/custommodule/entity', customModule);
+        },
+        update: function (customModule) {
+            return authHttp.put('api/custommodule/entity', customModule);
+        },
+        delete: function (customModuleId) {
+            var path = 'api/custommodule/entity/' + customModuleId;
+            return authHttp.delete(path);
+        },
+        getDetailById: function (customModuleId) {
+            var path = 'api/custommodule/detail/' + customModuleId;
+            return authHttp.get(path);
+        },
+        getAll: function () {
+            return authHttp.get('api/custommodule/entity/');
+        }
+    }
+});

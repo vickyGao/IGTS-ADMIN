@@ -61,6 +61,11 @@ public class Constants {
     public static final String FILENAME = "filename";
     public static final String SUFFIX = "suffix";
     public static final String COMMODITY_ID = "commodityid";
+    public static final String CUSTOMMODULE = "custommodule";
+    public static final String TITLE = "title";
+    public static final String DISPLAY_SEQUENCE = "displaysequence";
+    public static final String KEYWORD = "keyword";
+    public static final String DISPLAYAMOUNT = "displayamount";
 
     /** URL Authorization */
     public static final String URL_LOGIN = "authorization/admin";
@@ -83,6 +88,7 @@ public class Constants {
     /** URL Custom Module */
     public static final String URL_CUSTOM_MODULE_ENTITY = "custommodule/entity";
     public static final String URL_CUSTOM_MODULE_DETAIL = "custommodule/detail";
+    public static final String URL_CUSTOM_MODULE_ADMIN_ENTITY = "custommodule/admin/entity";
 
     /** URL Hot Commodities */
     public static final String URL_HOT_ENTITY = "hot/entity";

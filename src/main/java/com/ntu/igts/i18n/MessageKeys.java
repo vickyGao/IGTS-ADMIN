@@ -27,4 +27,8 @@ public class MessageKeys {
     public static final String IMAGE_UPLOAD_FAIL = "image.upload.fail";
     public static final String NUMBER_IMAGE_UPLOADED = "number.image.uploaded";
 
+    /** CustomModule */
+    public static final String CUSTOM_MODULE_TITLE = "custom.module.title";
+    public static final String CUSTOM_MODULE_DISPLAY_SEQUENCE = "custom.module.display.sequence";
+
 }

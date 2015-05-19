@@ -24,6 +24,15 @@ rootApp.controller('HomeManagementController', function ($scope) {
     $scope.$on('event:ShowDeleteSliceModalRequest', function () {
         $scope.$broadcast('event:ShowDeleteSliceModal');
     });
+    $scope.$on('event:ShowCreateCustommoduleRequest', function () {
+        $scope.$broadcast('event:ShowCreateCustommodule');
+    });
+    $scope.$on('event:ShowUpdateCustommoduleRequest', function (event, customModuleId) {
+        $scope.$broadcast('event:ShowUpdateCustommodule', customModuleId);
+    });
+    $scope.$on('event:FlushCustomModuleListRequest', function () {
+        $scope.$broadcast('event:FlushCustomModuleList');
+    });
 });
 
 rootApp.controller('TabController', function ($scope) {
@@ -106,8 +115,35 @@ rootApp.controller('HotCustomizeController', function ($scope, $location, HotSer
     });
 });
 
-rootApp.controller('CustomModelCustomizeController', function ($scope) {
-
+rootApp.controller('CustomModelCustomizeController', function ($scope, CustomModuleService) {
+    CustomModuleService.getAll().success(function (data) {
+        $scope.custommodules = data.custommodules;
+    });
+    $scope.doCreateCustommodule = function () {
+        $scope.$emit('event:ShowCreateCustommoduleRequest');
+    }
+    $scope.doUpdate = function (customModuleId) {
+        $scope.$emit('event:ShowUpdateCustommoduleRequest', customModuleId);
+    }
+    $scope.doDelete = function (customModuleId) {
+        showConfirmDialog("确认删除？", {
+            ok: function (dialog) {
+                dialog.title("提交中...");
+                CustomModuleService.delete(customModuleId).success(function () {
+                    $scope.$emit('event:FlushCustomModuleListRequest');
+                });
+                return true;
+            },
+            cancel: function () {
+                return false;
+            }
+        });
+    }
+    $scope.$on('event:FlushCustomModuleList', function () {
+        CustomModuleService.getAll().success(function (data) {
+            $scope.custommodules = data.custommodules;
+        });
+    });
 });
 
 rootApp.controller('CustomizeController', function ($scope) {
@@ -224,6 +260,39 @@ rootApp.controller('DeleteSliceModalController', function ($scope, SliceService)
             cancel: function () {
                 return false;
             }
+        });
+    }
+});
+
+rootApp.controller('CreateCustomModuleModalController', function ($scope, CustomModuleService) {
+    $scope.$on('event:ShowCreateCustommodule', function () {
+        $('#createCustomModuleModal').modal("show");
+    });
+    $scope.doSubmit = function () {
+        var postBody = {
+            custommodule: $scope.custommodule
+        }
+        CustomModuleService.create(postBody).success(function () {
+            $('#createCustomModuleModal').modal("hide");
+            $scope.$emit('event:FlushCustomModuleListRequest');
+        });
+    }
+});
+
+rootApp.controller('UpdateCustomModuleModalController', function ($scope, CustomModuleService) {
+    $scope.$on('event:ShowUpdateCustommodule', function (event, customModuleId) {
+        CustomModuleService.getDetailById(customModuleId).success(function (data) {
+            $scope.custommodule = data.custommodule;
+            $('#updateCustomModuleModal').modal("show");
+        });
+    });
+    $scope.doSubmit = function () {
+        var putBody = {
+            custommodule: $scope.custommodule
+        }
+        CustomModuleService.update(putBody).success(function () {
+            $('#updateCustomModuleModal').modal("hide");
+            $scope.$emit('event:FlushCustomModuleListRequest');
         });
     }
 });
