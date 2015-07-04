@@ -11,8 +11,11 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("message")
 public class Message extends BaseModel implements Serializable {
 
-    private static final long serialVersionUID = 2122366791637631002L;
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2461115500867984631L;
     @JsonProperty("commodityid")
     private String commodityId;
     @JsonProperty("content")

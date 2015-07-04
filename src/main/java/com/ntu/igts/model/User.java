@@ -10,12 +10,17 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("user")
 public class User extends BaseModel implements Serializable {
 
-    private static final long serialVersionUID = 5852161501955587332L;
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3472438862251259822L;
     @JsonProperty("username")
     private String userName;
     @JsonProperty("password")
     private String password;
+    @JsonProperty("newpassword")
+    private String newPassword;
     @JsonProperty("realname")
     private String realName;
     @JsonProperty("email")
@@ -55,6 +60,14 @@ public class User extends BaseModel implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public String getRealName() {

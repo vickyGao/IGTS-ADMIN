@@ -16,6 +16,7 @@ rootApp.controller('headerController', function ($scope, AdminService, Authoriza
     });
     $scope.doLogout = function () {
         AuthorizationService.logout();
+        window.location.href = 'login.html';
     }
     $scope.doViewDetail = function (adminId) {
         $scope.$emit('event:showViewAdminDetailModalRequest', adminId);

@@ -8,12 +8,17 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("favorite")
 public class Favorite extends BaseModel implements Serializable {
 
-    private static final long serialVersionUID = -8876661467254356108L;
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6423204383910060747L;
     @JsonProperty("commodityid")
     private String commodityId;
     @JsonProperty("userid")
     private String userId;
+    @JsonProperty("commodity")
+    private Commodity commodity;
 
     public String getCommodityId() {
         return commodityId;
@@ -29,6 +34,14 @@ public class Favorite extends BaseModel implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Commodity getCommodity() {
+        return commodity;
+    }
+
+    public void setCommodity(Commodity commodity) {
+        this.commodity = commodity;
     }
 
 }

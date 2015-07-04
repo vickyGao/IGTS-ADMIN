@@ -9,8 +9,11 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("indent")
 public class Indent extends BaseModel implements Serializable {
 
-    private static final long serialVersionUID = 3479323334885410999L;
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8457910703962529707L;
     @JsonProperty("indentnumber")
     private String indentNumber; // e.g. 201502031423969130883 = year + month + date + date.getTime()
     @JsonProperty("userid")
@@ -41,6 +44,12 @@ public class Indent extends BaseModel implements Serializable {
     private double indentPrice;
     @JsonProperty("phonenumber")
     private String phoneNumber;
+    @JsonProperty("indentmessage")
+    private String indentmessage;
+    @JsonProperty("commodity")
+    private Commodity commodity;
+    @JsonProperty("sellerid")
+    private String sellerId;
 
     public String getIndentNumber() {
         return indentNumber;
@@ -162,4 +171,19 @@ public class Indent extends BaseModel implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public Commodity getCommodity() {
+        return commodity;
+    }
+
+    public void setCommodity(Commodity commodity) {
+        this.commodity = commodity;
+    }
+
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
 }

@@ -12,8 +12,11 @@ import com.ntu.igts.utils.StringUtil;
 @JsonRootName("commodity")
 public class Commodity extends BaseModel implements Serializable {
 
-    private static final long serialVersionUID = -7857399618945670063L;
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1328032410096440445L;
     @JsonProperty("title")
     private String title;
     @JsonProperty("description")
@@ -29,7 +32,7 @@ public class Commodity extends BaseModel implements Serializable {
     @JsonProperty("district")
     private String district;
     @JsonProperty("collectionnumber")
-    private int collectionNumber;
+    private int collectionNumber = 0;
     @JsonProperty("userid")
     private String userId;
     @JsonProperty("status")

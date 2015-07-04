@@ -8,14 +8,19 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("address")
 public class Address extends BaseModel implements Serializable {
 
-    private static final long serialVersionUID = -982553365567384192L;
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     @JsonProperty("addresscountry")
     private String addressCountry;
     @JsonProperty("addressprovince")
     private String addressProvince;
     @JsonProperty("addresscity")
     private String addressCity;
+    @JsonProperty("addressdistrict")
+    private String addressDistrict;
     @JsonProperty("addressdetail")
     private String addressDetail;
     @JsonProperty("postcode")
@@ -47,6 +52,14 @@ public class Address extends BaseModel implements Serializable {
 
     public void setAddressCity(String addressCity) {
         this.addressCity = addressCity;
+    }
+
+    public String getAddressDistrict() {
+        return addressDistrict;
+    }
+
+    public void setAddressDistrict(String addressDistrict) {
+        this.addressDistrict = addressDistrict;
     }
 
     public String getAddressDetail() {
